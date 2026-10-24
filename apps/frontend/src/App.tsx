@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { BrowserRouter, Outlet, Route, Routes, useLocation } from 'react-router-dom';
+import { Aura } from '@/components/Aura';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/showcase';
 import { LangProvider } from '@/lib/i18n';
@@ -29,6 +30,7 @@ function Layout() {
   return (
     <>
       <ScrollManager />
+      <Aura />
       <Navbar />
       <main>
         <Outlet />

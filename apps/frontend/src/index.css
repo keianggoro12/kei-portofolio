@@ -111,3 +111,78 @@
     @apply bg-gradient-to-r from-primary via-emerald-400 to-accent bg-clip-text text-transparent;
   }
 }
+
+/* Cahaya pengikut kursor (lihat components/Aura.tsx). Diletakkan di atas konten (di
+   bawah navbar z-50) dengan alpha rendah: di bawah konten, cahayanya terpotong oleh
+   section berlatar (Experience, QA Lab). */
+:root {
+  --aura-dx: 0px;
+  --aura-dy: 0px;
+  --aura-peak: 0.11;
+  --aura-gloss-peak: 0.04;
+}
+
+.dark {
+  --aura-peak: 0.09;
+  --aura-gloss-peak: 0.05;
+}
+
+.aura {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Tanpa kursor (HP/tablet) cahaya akan diam di tengah layar menutupi teks. */
+@media (hover: none) {
+  .aura {
+    display: none;
+  }
+}
+
+.aura__layer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 64rem;
+  height: 64rem;
+  margin: -32rem 0 0 -32rem;
+  will-change: translate;
+}
+
+/* Banyak stop supaya jatuhnya lembut seperti cahaya, bukan cakram bertepi. */
+.aura__tint {
+  translate: var(--aura-dx) var(--aura-dy);
+  background: radial-gradient(
+    circle at center,
+    hsl(var(--primary) / var(--aura-peak)) 0%,
+    hsl(var(--primary) / calc(var(--aura-peak) * 0.66)) 24%,
+    hsl(var(--primary) / calc(var(--aura-peak) * 0.34)) 44%,
+    hsl(var(--primary) / calc(var(--aura-peak) * 0.13)) 62%,
+    hsl(var(--primary) / calc(var(--aura-peak) * 0.03)) 78%,
+    hsl(var(--primary) / 0) 92%
+  );
+}
+
+/* Inti ungu lebih dekat ke kursor (0.6x) supaya dua layer terpisah saat bergerak. */
+.aura__gloss {
+  width: 34rem;
+  height: 34rem;
+  margin: -17rem 0 0 -17rem;
+  translate: calc(var(--aura-dx) * 0.6) calc(var(--aura-dy) * 0.6);
+  background: radial-gradient(
+    circle at center,
+    hsl(var(--accent) / var(--aura-gloss-peak)) 0%,
+    hsl(var(--accent) / calc(var(--aura-gloss-peak) * 0.5)) 30%,
+    hsl(var(--accent) / calc(var(--aura-gloss-peak) * 0.16)) 58%,
+    hsl(var(--accent) / 0) 82%
+  );
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .aura__layer {
+    transition: translate 620ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+}
