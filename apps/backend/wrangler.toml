@@ -12,7 +12,7 @@ GITHUB_REF = "main"
 MAX_RUNS_PER_IP_PER_DAY = "3"
 MAX_PUBLIC_RUNS_PER_DAY = "20"
 # Site key Turnstile bersifat publik; diisi setelah widget dibuat. Kosong = tombol Run nonaktif.
-TURNSTILE_SITE_KEY = ""
+TURNSTILE_SITE_KEY = "0x4AAAAAAFkLimn9ljGduBdv"
 
 # Secrets (wrangler secret put):
 #   GITHUB_TOKEN          fine-grained PAT, repo ini saja, Actions: Read and write
