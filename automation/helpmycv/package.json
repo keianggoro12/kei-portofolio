@@ -1,0 +1,22 @@
+{
+  "name": "helpmycv-automation",
+  "version": "1.0.0",
+  "private": true,
+  "description": "End-to-end automation for HelpMyCV (https://helpmycv-frontend.keianggoro12.workers.dev)",
+  "scripts": {
+    "test": "playwright test",
+    "test:auth": "playwright test tests/auth/",
+    "test:resume": "playwright test tests/resume/",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "typecheck": "tsc --noEmit",
+    "report": "playwright show-report"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^10.5.0",
+    "@playwright/test": "^1.52.0",
+    "@types/node": "^22.0.0",
+    "dotenv": "^16.5.0",
+    "typescript": "^5.8.3"
+  }
+}

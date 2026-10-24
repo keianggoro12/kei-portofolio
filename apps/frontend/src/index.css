@@ -1,0 +1,113 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 150 20% 98%;
+    --foreground: 160 30% 8%;
+    --card: 0 0% 100%;
+    --muted: 150 16% 94%;
+    --muted-foreground: 160 8% 38%;
+    --border: 150 14% 87%;
+    --primary: 158 84% 32%;
+    --primary-foreground: 0 0% 100%;
+    --accent: 262 70% 56%;
+    --accent-foreground: 0 0% 100%;
+    --danger: 0 72% 52%;
+    /* Panel terminal / QA Lab selalu gelap di kedua tema. */
+    --ink: 160 35% 5%;
+  }
+
+  .dark {
+    --background: 160 30% 4%;
+    --foreground: 150 20% 95%;
+    --card: 160 22% 7%;
+    --muted: 160 16% 11%;
+    --muted-foreground: 155 8% 64%;
+    --border: 160 14% 15%;
+    --primary: 156 72% 52%;
+    --primary-foreground: 160 35% 5%;
+    --accent: 262 85% 72%;
+    --accent-foreground: 160 35% 5%;
+    --danger: 0 80% 64%;
+    --ink: 160 35% 3%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    @apply bg-background font-sans text-foreground antialiased;
+    font-feature-settings: 'cv11', 'ss01';
+  }
+
+  ::selection {
+    @apply bg-primary/25;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .section {
+    @apply py-20 sm:py-28;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 font-mono text-xs font-medium uppercase tracking-[0.18em] text-primary;
+  }
+
+  .heading {
+    @apply font-display text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl;
+  }
+
+  .card {
+    @apply rounded-3xl border bg-card shadow-[0_1px_0_0_hsl(var(--border)),0_20px_40px_-24px_hsl(var(--foreground)/0.18)];
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border bg-card/70 px-3 py-1 text-xs font-medium text-muted-foreground backdrop-blur;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50;
+  }
+
+  .btn-primary {
+    @apply btn bg-primary text-primary-foreground shadow-[0_10px_30px_-10px_hsl(var(--primary)/0.7)] hover:-translate-y-0.5 hover:shadow-[0_16px_40px_-12px_hsl(var(--primary)/0.8)];
+  }
+
+  .btn-ghost {
+    @apply btn border bg-card/60 text-foreground backdrop-blur hover:-translate-y-0.5 hover:border-primary/50;
+  }
+
+  /* Latar grid tipis ala kertas test plan. */
+  .bg-grid {
+    background-image:
+      linear-gradient(hsl(var(--foreground) / 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--foreground) / 0.05) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary via-emerald-400 to-accent bg-clip-text text-transparent;
+  }
+}

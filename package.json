@@ -1,0 +1,13 @@
+{
+  "name": "kei-portofolio",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w apps/frontend",
+    "build": "npm run build -w apps/frontend",
+    "typecheck": "npm run typecheck -w apps/frontend"
+  }
+}

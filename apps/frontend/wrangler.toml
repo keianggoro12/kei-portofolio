@@ -1,0 +1,8 @@
+name = "kei-portfolio-frontend"
+compatibility_date = "2026-10-01"
+
+# SPA statis (PRD §5.2: Workers static assets, bukan Pages).
+# Route yang tidak cocok dengan file dilayani index.html, routing di React Router.
+[assets]
+directory = "./dist"
+not_found_handling = "single-page-application"

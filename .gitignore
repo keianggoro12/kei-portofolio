@@ -1,0 +1,19 @@
+node_modules/
+dist/
+.wrangler/
+.env
+.env.*
+!.env.example
+
+# Playwright
+test-results/
+playwright-report/
+blob-report/
+
+# CV berisi alamat rumah dan nomor telepon (PRD §4.5): jangan di-commit.
+Resume Kei Anggoro Publik.pdf
+resume kei desu.pdf
+
+# OS / editor
+.DS_Store
+*.log

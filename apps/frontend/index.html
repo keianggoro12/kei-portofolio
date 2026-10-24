@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kei Anggoro · Senior QA Engineer</title>
+    <meta name="description" content="Juliardi Dwi Anggoro (Kei), Senior QA Engineer in Jakarta. Playwright + TypeScript test automation, API testing, and a live QA Lab you can run yourself." />
+    <meta property="og:title" content="Kei Anggoro · Senior QA Engineer" />
+    <meta property="og:description" content="I break software on purpose, so your users never have to." />
+    <meta property="og:image" content="/kei.jpg" />
+    <meta name="theme-color" content="#07100d" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script>
+      // Pasang tema sebelum render supaya tidak berkedip (PRD NFR-06: ikut sistem kecuali dipilih manual).
+      try {
+        var t = localStorage.getItem('theme');
+        if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.classList.add('dark');
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
