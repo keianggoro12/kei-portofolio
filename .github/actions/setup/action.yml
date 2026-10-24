@@ -1,0 +1,22 @@
+name: Setup
+description: Install Node 22 and npm dependencies (with cache) for one package root.
+
+inputs:
+  working-directory:
+    description: Folder that holds the package-lock.json to install.
+    default: .
+
+runs:
+  using: composite
+  steps:
+    - name: Set up Node 22
+      uses: actions/setup-node@v4
+      with:
+        node-version: 22
+        cache: npm
+        cache-dependency-path: ${{ inputs.working-directory }}/package-lock.json
+
+    - name: Install dependencies
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: npm ci

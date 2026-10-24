@@ -1,0 +1,40 @@
+name: Deploy frontend
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/frontend/**'
+      - 'packages/shared/**'
+      - 'package-lock.json'
+      - '.github/actions/setup/**'
+      - '.github/workflows/deploy-frontend.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Deploy tidak boleh tumpang tindih, dan deploy yang sedang jalan tidak dibatalkan.
+concurrency:
+  group: deploy-frontend
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy to Cloudflare Workers
+    runs-on: ubuntu-latest
+    # Secret Cloudflare hanya terbuka untuk job di environment ini (PRD GHA-04).
+    environment:
+      name: production
+      url: https://kei-portfolio-frontend.keianggoro12.workers.dev
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+      - name: Build frontend
+        run: npm run build
+      - name: Deploy with Wrangler
+        working-directory: apps/frontend
+        run: npx wrangler deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
