@@ -64,7 +64,7 @@ function RunPanel({ runs }: { runs: RunSummary[] | null }) {
 
   return (
     <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-5 sm:p-6">
-      <div className="flex flex-wrap items-center gap-4">
+      <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center">
         <button
           type="button"
           onClick={start}
@@ -93,7 +93,7 @@ function RunHistory({ runs }: { runs: RunSummary[] }) {
           <li key={run.id}>
             <Link to={`/lab/runs/${run.id}`} className="flex flex-wrap items-center gap-x-4 gap-y-1 px-5 py-3 transition hover:bg-white/[0.04]">
               <RunStatusBadge status={run.status} />
-              <span className="flex-1 text-sm text-white/85">{dateFormat.format(new Date(run.createdAt))}</span>
+              <span className="min-w-[9rem] flex-1 text-sm text-white/85">{dateFormat.format(new Date(run.createdAt))}</span>
               <span className="font-mono text-xs text-white/45">{ui.runner.trigger[run.trigger]}</span>
               <span className="w-16 text-right font-mono text-xs text-white/70">
                 {run.total ? `${run.passed}/${run.total}` : '–'}
@@ -147,7 +147,7 @@ export default function Lab() {
         </Reveal>
 
         <div className="mt-10 grid gap-6 lg:grid-cols-[1fr_1.15fr]">
-          <Reveal>
+          <Reveal className="min-w-0">
             {hasRuns ? (
               <RunHistory runs={runs} />
             ) : (
@@ -164,7 +164,7 @@ export default function Lab() {
               ))}
             </div>
           </Reveal>
-          <Reveal delay={100}>
+          <Reveal delay={100} className="min-w-0">
             <StepGallery />
           </Reveal>
         </div>

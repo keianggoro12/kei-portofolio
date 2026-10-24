@@ -25,5 +25,5 @@ Deploy: `npm run deploy -w @kei/frontend` (butuh `wrangler login`).
 Semua teks ada di `packages/shared/src/profile.ts` dan `projects.ts`, masing-masing dalam Inggris dan Indonesia. Teks UI (tombol, judul section) ada di `apps/frontend/src/lib/i18n.tsx`.
 
 - Foto: `apps/frontend/public/kei.jpg`.
-- Tombol "Download CV" baru muncul bila `profile.resumeUrl` diisi. Taruh PDF CV **tanpa alamat rumah dan nomor telepon** di `apps/frontend/public/`, lalu isi path-nya.
+- Tombol "Download CV" memakai `apps/frontend/public/resume-kei-anggoro.pdf` (`profile.resumeUrl`): salinan CV dengan alamat rumah dan nomor telepon disensor. Saat CV diperbarui, buat ulang salinan yang disensor; jangan commit PDF aslinya.
 - Screenshot project dan langkah QA Lab ada di `apps/frontend/public/projects/` dan `public/lab/`.

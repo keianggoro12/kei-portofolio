@@ -68,7 +68,7 @@
 
 @layer components {
   .section {
-    @apply py-20 sm:py-28;
+    @apply py-16 sm:py-28;
   }
 
   .eyebrow {

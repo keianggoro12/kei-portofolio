@@ -40,12 +40,13 @@ export const profile = {
   email: 'keianggoro12@gmail.com',
   github: 'https://github.com/keianggoro12',
   linkedin: 'https://www.linkedin.com/in/juliardi-dwi-anggoro-b40449257/',
+  instagram: 'https://www.instagram.com/keianggoro12/',
   photo: '/kei.jpg',
   /**
-   * URL PDF CV publik. Tetap null sampai ada versi tanpa alamat rumah dan
-   * nomor telepon; tombol "Download CV" hanya muncul bila diisi.
+   * PDF CV publik: salinan CV dengan alamat rumah dan nomor telepon disensor
+   * (PRD §4.5). Tombol "Download CV" hanya muncul bila diisi.
    */
-  resumeUrl: null as string | null,
+  resumeUrl: '/resume-kei-anggoro.pdf' as string | null,
   /** Awal karier QA, dasar hitungan "tahun di QA" (jangan dibulatkan ke atas). */
   qaSince: '2024-03',
   intro: {

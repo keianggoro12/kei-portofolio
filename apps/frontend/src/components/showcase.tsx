@@ -1,5 +1,5 @@
 import { latestRun, profile, projects, type Project } from '@kei/shared';
-import { ArrowRight, ArrowUpRight, Check, ChevronLeft, ChevronRight, Clock, Copy, Github, Linkedin, Mail, PlayCircle } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Check, ChevronLeft, ChevronRight, Clock, Copy, Download, Github, Instagram, Linkedin, Mail, PlayCircle } from 'lucide-react';
 import { useState } from 'react';
 import { useLabConfig } from '@/lib/api';
 import { Link } from 'react-router-dom';
@@ -110,8 +110,11 @@ export function RunReport({ className }: { className?: string }) {
             <span className={cn('grid h-5 w-5 shrink-0 place-items-center rounded-full', test.status === 'passed' ? 'bg-emerald-400/20 text-emerald-300' : 'bg-red-400/20 text-red-300')}>
               <Check className="h-3 w-3" strokeWidth={3} />
             </span>
-            <span className="w-24 shrink-0 text-xs text-white/40">{test.id}</span>
-            <span className="flex-1 truncate font-sans text-white/85">{test.title}</span>
+            <span className="hidden w-24 shrink-0 text-xs text-white/40 sm:block">{test.id}</span>
+            <span className="min-w-0 flex-1 font-sans text-white/85 sm:truncate">
+              <span className="block font-mono text-[11px] text-white/40 sm:hidden">{test.id}</span>
+              {test.title}
+            </span>
             <span className="text-xs text-white/40">{formatSeconds(test.durationMs)}</span>
           </li>
         ))}
@@ -180,7 +183,7 @@ export function LabSection() {
           <p className="mt-4 text-lg text-white/65 text-pretty">{ui.lab.subtitle}</p>
         </Reveal>
         <div className="mt-12 grid gap-6 lg:grid-cols-[1fr_1.15fr]">
-          <Reveal>
+          <Reveal className="min-w-0">
             <RunReport />
             <div className="mt-6 flex flex-wrap items-center gap-4">
               <Link to="/lab" className="btn bg-emerald-400 text-ink hover:-translate-y-0.5 hover:bg-emerald-300">
@@ -193,7 +196,7 @@ export function LabSection() {
               </span>
             </div>
           </Reveal>
-          <Reveal delay={120}>
+          <Reveal delay={120} className="min-w-0">
             <StepGallery />
           </Reveal>
         </div>
@@ -231,17 +234,26 @@ export function ContactSection() {
               <Mail className="h-4 w-4" />
               {ui.contact.email}
             </a>
-            <button type="button" onClick={copy} className="btn-ghost font-mono text-xs sm:text-sm">
-              {copied ? <Check className="h-4 w-4 text-primary" /> : <Copy className="h-4 w-4" />}
-              {copied ? ui.contact.copied : profile.email}
-            </button>
+            {profile.resumeUrl && (
+              <a href={profile.resumeUrl} download className="btn-ghost">
+                <Download className="h-4 w-4" />
+                {ui.hero.cta.cv}
+              </a>
+            )}
           </div>
+          <button type="button" onClick={copy} className="mt-3 inline-flex items-center gap-2 font-mono text-xs text-muted-foreground transition hover:text-foreground sm:text-sm">
+            {copied ? <Check className="h-4 w-4 text-primary" /> : <Copy className="h-4 w-4" />}
+            {copied ? ui.contact.copied : profile.email}
+          </button>
           <div className="mt-6 flex justify-center gap-3">
             <a href={profile.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn" className="grid h-11 w-11 place-items-center rounded-full border bg-background transition hover:-translate-y-0.5 hover:border-primary hover:text-primary">
               <Linkedin className="h-5 w-5" />
             </a>
             <a href={profile.github} target="_blank" rel="noreferrer" aria-label="GitHub" className="grid h-11 w-11 place-items-center rounded-full border bg-background transition hover:-translate-y-0.5 hover:border-primary hover:text-primary">
               <Github className="h-5 w-5" />
+            </a>
+            <a href={profile.instagram} target="_blank" rel="noreferrer" aria-label="Instagram" className="grid h-11 w-11 place-items-center rounded-full border bg-background transition hover:-translate-y-0.5 hover:border-primary hover:text-primary">
+              <Instagram className="h-5 w-5" />
             </a>
           </div>
         </div>

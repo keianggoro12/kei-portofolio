@@ -69,9 +69,9 @@ export function TestTerminal({ className }: { className?: string }) {
         {tests.map((test, i) => (
           <p key={test.title} className={cn('flex gap-2 transition-opacity duration-300', i < done ? 'opacity-100' : 'opacity-0')}>
             <span className="text-emerald-400">✓</span>
-            <span className="text-white/35">{i + 1}</span>
+            <span className="hidden text-white/35 sm:inline">{i + 1}</span>
             <span className="flex-1 truncate">
-              <span className="text-white/45">Kei › </span>
+              <span className="hidden text-white/45 sm:inline">Kei › </span>
               {test.title}
             </span>
             <span className="text-white/35">{test.ms}ms</span>

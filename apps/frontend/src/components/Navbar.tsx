@@ -1,4 +1,5 @@
-import { Menu, Moon, Sun, X } from 'lucide-react';
+import { profile } from '@kei/shared';
+import { Download, Menu, Moon, Sun, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useLang } from '@/lib/i18n';
@@ -9,13 +10,12 @@ export function Logo({ className }: { className?: string }) {
   return (
     <Link to="/" className={cn('group flex items-center gap-2.5 font-display text-lg font-bold tracking-tight', className)}>
       <span className="grid h-9 w-9 place-items-center rounded-xl bg-ink text-primary shadow-[inset_0_0_0_1px_hsl(var(--primary)/0.35)] transition group-hover:rotate-[-6deg] dark:text-primary">
-        <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M5 12.5l4.5 4.5L19 7" />
+        {/* Monogram K, sama dengan favicon */}
+        <svg viewBox="0 0 64 64" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="7" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M22 16v32M44 16 26.5 32.5 44 48" />
         </svg>
       </span>
-      <span>
-        kei<span className="text-primary">.qa</span>
-      </span>
+      <span>keianggoro</span>
     </Link>
   );
 }
@@ -88,6 +88,12 @@ export function Navbar() {
           >
             {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
           </button>
+          {profile.resumeUrl && (
+            <a href={profile.resumeUrl} download className="btn-ghost hidden px-4 py-2 lg:inline-flex">
+              <Download className="h-4 w-4" />
+              CV
+            </a>
+          )}
           <Link to="/#contact" className="btn-primary hidden px-4 py-2 lg:inline-flex">
             {ui.nav.hire}
           </Link>
@@ -112,6 +118,14 @@ export function Navbar() {
               </Link>
             </li>
           ))}
+          {profile.resumeUrl && (
+            <li className="pt-2">
+              <a href={profile.resumeUrl} download className="btn-primary w-full">
+                <Download className="h-4 w-4" />
+                {ui.hero.cta.cv}
+              </a>
+            </li>
+          )}
         </ul>
       )}
     </header>

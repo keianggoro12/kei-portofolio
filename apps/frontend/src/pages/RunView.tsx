@@ -253,13 +253,13 @@ export default function RunView() {
           <aside className="rounded-3xl border border-white/10 bg-white/[0.03] p-3">
             <p className="px-2 py-2 font-mono text-xs uppercase tracking-widest text-white/45">{ui.runner.tests}</p>
             {!run && <div className="h-40 animate-pulse rounded-2xl bg-white/5" />}
-            <ul className="space-y-1">
+            <ul className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1 lg:mx-0 lg:block lg:space-y-1 lg:overflow-visible lg:px-0 lg:pb-0">
               {run?.tests.map((test) => (
-                <li key={test.id}>
+                <li key={test.id} className="w-60 shrink-0 lg:w-auto">
                   <button
                     type="button"
                     onClick={() => setPicked(test.id)}
-                    className={cn('flex w-full items-start gap-3 rounded-2xl px-3 py-2.5 text-left transition', selected?.id === test.id ? 'bg-white/10' : 'hover:bg-white/5')}
+                    className={cn('flex h-full w-full items-start gap-3 rounded-2xl px-3 py-2.5 text-left transition', selected?.id === test.id ? 'bg-white/10' : 'bg-white/[0.02] hover:bg-white/5 lg:bg-transparent')}
                   >
                     <TestStatusIcon status={test.status} />
                     <span className="min-w-0 flex-1">
