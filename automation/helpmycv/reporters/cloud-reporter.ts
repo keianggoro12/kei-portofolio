@@ -21,6 +21,7 @@ const BACKEND_URL = (process.env.BACKEND_URL || '').replace(/\/$/, '');
 const RUNNER_TOKEN = process.env.RUNNER_TOKEN || '';
 const PROJECT = 'helpmycv';
 const FLUSH_INTERVAL_MS = 1000;
+const ANSI = /\u001b\[[0-9;]*m/g;
 const MAX_BATCH = 100;
 // Dibaca langkah terakhir workflow untuk menutup run bila job berhenti di tengah.
 export const RUN_ID_FILE = path.join(process.env.RUNNER_TEMP || os.tmpdir(), 'kei-run-id');
@@ -82,6 +83,8 @@ class CloudReporter implements Reporter {
       file: path.relative(process.cwd(), test.location.file),
     });
     this.log('info', `▶ ${tcId(test, run)} ${test.title}`);
+    // Retry memakai folder screenshot yang sama; screenshot percobaan sebelumnya bukan milik percobaan ini.
+    this.claimShots(test, result);
   }
 
   onStepEnd(test: TestCase, result: TestResult, step: TestStep): void {
@@ -142,7 +145,7 @@ class CloudReporter implements Reporter {
         testId,
         status,
         durationMs: result.duration,
-        error: result.error?.message?.split('\n').slice(0, 6).join('\n'),
+        error: result.error?.message?.replace(ANSI, '').split('\n').slice(0, 12).join('\n'),
         videoKey,
         networkKey,
       });
@@ -174,7 +177,7 @@ class CloudReporter implements Reporter {
 
   private log(level: 'info' | 'error', message: string): void {
     this.logSeq += 1;
-    this.push({ type: 'log', seq: this.logSeq, level, message });
+    this.push({ type: 'log', seq: this.logSeq, level, message: message.replace(ANSI, '') });
   }
 
   private push(event: RunnerEvent): void {

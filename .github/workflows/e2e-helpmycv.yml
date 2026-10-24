@@ -69,6 +69,11 @@ jobs:
         if: steps.browsers.outputs.cache-hit == 'true'
         run: npx playwright install-deps chromium
 
+      # Video Playwright berformat webm; cloud reporter mengubahnya ke mp4 supaya jalan di Safari.
+      - name: Install ffmpeg
+        if: ${{ env.BACKEND_URL }}
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends ffmpeg > /dev/null
+
       - name: Run Playwright tests
         run: npx playwright test
         env:

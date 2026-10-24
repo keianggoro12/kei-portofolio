@@ -121,7 +121,8 @@ export async function expectResumeContent(page: Page, resumeId: string, content:
   }
 
   await expect(editorPage.previewText(content.personal.fullName), 'Nama tampil di preview CV').toBeVisible();
-  await expect(editorPage.previewText(content.experience[0].company as string), 'Pengalaman kerja tampil di preview CV').toBeVisible();
+  // Gemini kadang menulis dua pengalaman di perusahaan yang sama (promosi), jadi teksnya bisa muncul dua kali.
+  await expect(editorPage.previewText(content.experience[0].company as string).first(), 'Pengalaman kerja tampil di preview CV').toBeVisible();
 }
 
 /** Buat CV dari dashboard sampai editor terbuka; mengembalikan id CV. */
