@@ -10,6 +10,7 @@ const en = {
     cta: { contact: 'Get in touch', lab: 'Watch my tests run', cv: 'Download CV' },
     based: 'Based in',
     passRate: 'latest run',
+    labBanner: 'Real Playwright tests on my production app',
   },
   terminal: { title: 'kei.spec.ts', running: 'Running 6 tests using 1 worker', passed: 'passed', ready: 'Ready for your team.' },
   stats: {
@@ -134,6 +135,7 @@ const id: Dict = {
     cta: { contact: 'Hubungi saya', lab: 'Lihat test saya berjalan', cv: 'Unduh CV' },
     based: 'Berdomisili di',
     passRate: 'run terakhir',
+    labBanner: 'Test Playwright sungguhan di aplikasi production saya',
   },
   terminal: { title: 'kei.spec.ts', running: 'Menjalankan 6 test dengan 1 worker', passed: 'lolos', ready: 'Siap bergabung dengan tim Anda.' },
   stats: {

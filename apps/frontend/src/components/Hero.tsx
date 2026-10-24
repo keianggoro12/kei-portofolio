@@ -22,6 +22,14 @@ export function Hero() {
 
       <div className="container relative grid items-center gap-14 pb-20 lg:grid-cols-[1.1fr_0.9fr] lg:gap-10 lg:pb-28">
         <div>
+          <Link
+            to="/lab"
+            className="group mb-4 inline-flex max-w-full animate-fade-up items-center gap-2 rounded-full border border-primary/25 bg-primary/5 py-1 pl-1 pr-3 text-xs text-muted-foreground transition hover:border-primary/50 hover:text-foreground"
+          >
+            <span className="shrink-0 whitespace-nowrap rounded-full bg-primary/15 px-2 py-0.5 font-semibold text-primary">{ui.nav.lab}</span>
+            <span className="truncate">{ui.hero.labBanner}</span>
+            <ArrowRight className="h-3.5 w-3.5 shrink-0 transition group-hover:translate-x-0.5" />
+          </Link>
           <div className="flex animate-fade-up items-center gap-3">
             <Avatar className="h-11 w-11 lg:hidden" />
             <p className="chip">
@@ -42,13 +50,13 @@ export function Hero() {
           </p>
 
           <div className="mt-8 flex animate-fade-up flex-wrap gap-3 [animation-delay:240ms]">
-            <Link to="/#contact" className="btn-primary">
+            <Link to="/lab" className="btn-primary">
+              <PlayCircle className="h-4 w-4" />
+              {ui.hero.cta.lab}
+            </Link>
+            <Link to="/#contact" className="btn-ghost">
               {ui.hero.cta.contact}
               <ArrowRight className="h-4 w-4" />
-            </Link>
-            <Link to="/lab" className="btn-ghost">
-              <PlayCircle className="h-4 w-4 text-primary" />
-              {ui.hero.cta.lab}
             </Link>
             {profile.resumeUrl && (
               <a href={profile.resumeUrl} className="btn-ghost" download>
@@ -87,7 +95,9 @@ export function Hero() {
               <p className="mt-1 text-[10px] uppercase tracking-widest text-white/70">{ui.hero.passRate}</p>
             </div>
           </div>
-          <TestTerminal className="absolute -bottom-10 left-0 w-full animate-float sm:w-[94%] lg:-left-12" />
+          <Link to="/lab" aria-label={ui.hero.cta.lab} className="group absolute -bottom-10 left-0 w-full animate-float sm:w-[94%] lg:-left-12">
+            <TestTerminal className="transition group-hover:border-primary/50" />
+          </Link>
         </div>
       </div>
 

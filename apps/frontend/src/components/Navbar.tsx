@@ -39,7 +39,7 @@ export function Navbar() {
     { href: '/#about', label: ui.nav.about },
     { href: '/#experience', label: ui.nav.experience },
     { href: '/#projects', label: ui.nav.projects },
-    { href: '/lab', label: ui.nav.lab },
+    { href: '/lab', label: ui.nav.lab, highlight: true },
     { href: '/#contact', label: ui.nav.contact },
   ];
 
@@ -56,7 +56,14 @@ export function Navbar() {
         <ul className="hidden items-center gap-1 md:flex">
           {links.map((link) => (
             <li key={link.href}>
-              <Link to={link.href} className="rounded-full px-3.5 py-2 text-sm font-medium text-muted-foreground transition hover:bg-muted hover:text-foreground">
+              <Link
+                to={link.href}
+                className={cn(
+                  'inline-flex items-center gap-2 rounded-full px-3.5 py-2 text-sm font-medium transition hover:bg-muted hover:text-foreground',
+                  link.highlight ? 'text-foreground' : 'text-muted-foreground'
+                )}
+              >
+                {link.highlight && <span className="h-1.5 w-1.5 animate-pulse-ring rounded-full bg-primary" />}
                 {link.label}
               </Link>
             </li>
@@ -113,8 +120,9 @@ export function Navbar() {
         <ul className="container grid gap-1 pb-4 md:hidden">
           {links.map((link) => (
             <li key={link.href}>
-              <Link to={link.href} onClick={() => setOpen(false)} className="block rounded-xl px-3 py-3 font-medium hover:bg-muted">
+              <Link to={link.href} onClick={() => setOpen(false)} className="flex items-center gap-2 rounded-xl px-3 py-3 font-medium hover:bg-muted">
                 {link.label}
+                {link.highlight && <span className="h-1.5 w-1.5 animate-pulse-ring rounded-full bg-primary" />}
               </Link>
             </li>
           ))}
