@@ -26,7 +26,7 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   // Halaman QA Lab selalu gelap; navbar transparan di atasnya tidak terbaca di tema light.
-  const solid = useLocation().pathname === '/lab';
+  const solid = useLocation().pathname.startsWith('/lab');
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);

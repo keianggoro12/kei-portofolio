@@ -1,6 +1,7 @@
 import { latestRun, profile, projects, type Project } from '@kei/shared';
 import { ArrowRight, ArrowUpRight, Check, ChevronLeft, ChevronRight, Clock, Copy, Github, Linkedin, Mail, PlayCircle } from 'lucide-react';
 import { useState } from 'react';
+import { useLabConfig } from '@/lib/api';
 import { Link } from 'react-router-dom';
 import { useLang } from '@/lib/i18n';
 import { cn } from '@/lib/utils';
@@ -164,6 +165,7 @@ export function StepGallery({ className }: { className?: string }) {
 
 export function LabSection() {
   const { ui } = useLang();
+  const runEnabled = useLabConfig()?.runEnabled ?? false;
   return (
     <section id="lab" className="relative overflow-hidden bg-ink py-20 text-white sm:py-28">
       <div className="pointer-events-none absolute inset-0 opacity-60 [background-image:radial-gradient(hsl(156_72%_52%/0.18)_1px,transparent_1px)] [background-size:22px_22px] [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_70%)]" />
@@ -186,8 +188,8 @@ export function LabSection() {
                 {ui.lab.open}
               </Link>
               <span className="inline-flex items-center gap-2 font-mono text-xs text-white/50">
-                <span className="h-2 w-2 animate-pulse rounded-full bg-amber-400" />
-                {ui.lab.soon}
+                <span className={cn('h-2 w-2 animate-pulse rounded-full', runEnabled ? 'bg-emerald-400' : 'bg-amber-400')} />
+                {runEnabled ? ui.lab.live : ui.lab.soon}
               </span>
             </div>
           </Reveal>

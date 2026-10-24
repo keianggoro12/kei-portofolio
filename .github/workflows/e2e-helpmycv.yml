@@ -3,6 +3,11 @@ name: E2E HelpMyCV
 # Tidak pernah dipicu pull_request, supaya secret tidak terbuka untuk kode dari PR (PRD GHA-07).
 on:
   workflow_dispatch:
+    inputs:
+      run_id:
+        description: ID run dari QA Lab (kosongkan saat memicu manual; run dibuat otomatis)
+        required: false
+        default: ''
   schedule:
     # Tiap hari 08:00 WIB
     - cron: '0 1 * * *'
@@ -22,7 +27,24 @@ jobs:
     defaults:
       run:
         working-directory: automation/helpmycv
+    env:
+      # Cloud reporter mengirim hasil ke QA Lab bila keduanya ada (PRD §8.1).
+      BACKEND_URL: ${{ vars.BACKEND_URL }}
+      RUNNER_TOKEN: ${{ secrets.RUNNER_TOKEN }}
+      RUN_ID: ${{ inputs.run_id }}
+      RUN_TRIGGER: ${{ github.event_name == 'schedule' && 'schedule' || 'owner' }}
     steps:
+      # Langsung tandai run "running" supaya penonton tahu runner sudah dapat jatah,
+      # walau browser belum terpasang.
+      - name: Mark run as started
+        if: ${{ inputs.run_id && env.BACKEND_URL }}
+        working-directory: .
+        run: |
+          curl -sS -f -X POST "$BACKEND_URL/api/runner/events" \
+            -H "Authorization: Bearer $RUNNER_TOKEN" -H 'Content-Type: application/json' \
+            -d "{\"runId\":\"$RUN_ID\",\"events\":[{\"type\":\"run.started\",\"githubRunId\":$GITHUB_RUN_ID,\"githubRunUrl\":\"$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID\"}]}" \
+            || echo "::warning::Could not reach QA Lab backend"
+
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
         with:
@@ -53,6 +75,21 @@ jobs:
           CI: true
           # Tanpa key, isi CV memakai data dummy faker; test tetap jalan.
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+
+      # Job berhenti sebelum reporter mengirim run.finished (gagal install, timeout,
+      # dibatalkan): tutup run supaya tidak menggantung di QA Lab (PRD GHA-09).
+      # Backend mengabaikan event ini bila run sudah selesai.
+      - name: Close QA Lab run
+        if: ${{ always() && env.BACKEND_URL }}
+        working-directory: .
+        env:
+          STATUS: ${{ job.status == 'cancelled' && 'cancelled' || 'failed' }}
+        run: |
+          RID="${RUN_ID:-$(cat "$RUNNER_TEMP/kei-run-id" 2>/dev/null || true)}"
+          [ -z "$RID" ] && exit 0
+          curl -sS -X POST "$BACKEND_URL/api/runner/events" \
+            -H "Authorization: Bearer $RUNNER_TOKEN" -H 'Content-Type: application/json' \
+            -d "{\"runId\":\"$RID\",\"events\":[{\"type\":\"run.finished\",\"status\":\"$STATUS\",\"passed\":0,\"failed\":0,\"skipped\":0,\"durationMs\":0}]}" || true
 
       - name: Upload HTML report
         if: ${{ !cancelled() }}

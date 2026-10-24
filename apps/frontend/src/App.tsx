@@ -7,6 +7,7 @@ import Home from '@/pages/Home';
 import Lab from '@/pages/Lab';
 import NotFound from '@/pages/NotFound';
 import ProjectDetail from '@/pages/ProjectDetail';
+import RunView from '@/pages/RunView';
 
 /** Link "/#section" dari halaman lain: scroll ke section setelah Home dirender. */
 function ScrollManager() {
@@ -46,6 +47,7 @@ export default function App() {
             <Route index element={<Home />} />
             <Route path="projects/:slug" element={<ProjectDetail />} />
             <Route path="lab" element={<Lab />} />
+            <Route path="lab/runs/:runId" element={<RunView />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>

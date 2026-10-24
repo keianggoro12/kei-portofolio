@@ -1,0 +1,35 @@
+name = "kei-portfolio-backend"
+main = "src/index.ts"
+compatibility_date = "2026-10-01"
+
+[observability]
+enabled = true
+
+[vars]
+GITHUB_REPO = "keianggoro12/kei-portofolio"
+GITHUB_REF = "main"
+# Kuota publik (PRD SEC-05)
+MAX_RUNS_PER_IP_PER_DAY = "3"
+MAX_PUBLIC_RUNS_PER_DAY = "20"
+# Site key Turnstile bersifat publik; diisi setelah widget dibuat. Kosong = tombol Run nonaktif.
+TURNSTILE_SITE_KEY = ""
+
+# Secrets (wrangler secret put):
+#   GITHUB_TOKEN          fine-grained PAT, repo ini saja, Actions: Read and write
+#   TURNSTILE_SECRET_KEY  secret key widget Turnstile
+#   RUNNER_TOKEN          token bersama dengan GitHub Actions (secret RUNNER_TOKEN)
+#   IP_HASH_SALT          garam untuk hash IP pengunjung
+
+[[d1_databases]]
+binding = "DB"
+database_name = "kei-portfolio-db"
+database_id = "2c7283b2-f1be-4c2b-b566-58839053c5f6"
+migrations_dir = "migrations"
+
+[[r2_buckets]]
+binding = "ARTIFACTS"
+bucket_name = "kei-portfolio-artifacts"
+
+# Watchdog run macet + retensi 30 hari (PRD §5.3 langkah 7, SEC-07).
+[triggers]
+crons = ["*/5 * * * *"]

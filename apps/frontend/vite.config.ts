@@ -7,4 +7,8 @@ export default defineConfig({
   resolve: {
     alias: { '@': path.resolve(__dirname, 'src') },
   },
+  // Lokal: /api diteruskan ke backend `wrangler dev` (apps/backend, port 8788).
+  server: {
+    proxy: { '/api': 'http://localhost:8788' },
+  },
 });

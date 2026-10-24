@@ -22,6 +22,7 @@ jobs:
       pull-requests: read
     outputs:
       frontend: ${{ steps.filter.outputs.frontend }}
+      backend: ${{ steps.filter.outputs.backend }}
       automation: ${{ steps.filter.outputs.automation }}
     steps:
       - uses: actions/checkout@v4
@@ -34,8 +35,14 @@ jobs:
               - 'packages/shared/**'
               - 'package-lock.json'
               - '.github/**'
+            backend:
+              - 'apps/backend/**'
+              - 'packages/shared/**'
+              - 'package-lock.json'
+              - '.github/**'
             automation:
               - 'automation/helpmycv/**'
+              - 'packages/shared/src/runner.ts'
               - '.github/**'
 
   frontend:
@@ -48,6 +55,22 @@ jobs:
       - uses: ./.github/actions/setup
       - name: Typecheck and build frontend
         run: npm run build
+
+  backend:
+    name: Backend
+    needs: changes
+    if: needs.changes.outputs.backend == 'true'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+      - name: Typecheck backend
+        run: npm run typecheck
+      - name: Bundle check
+        run: npx wrangler deploy --dry-run --outdir dist
 
   automation:
     name: Automation

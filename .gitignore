@@ -17,3 +17,6 @@ resume kei desu.pdf
 # OS / editor
 .DS_Store
 *.log
+
+# Secret lokal Wrangler
+.dev.vars

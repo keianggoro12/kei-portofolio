@@ -17,7 +17,8 @@ export default defineConfig({
   workers: 1,
   // Tiap test login lewat UI + jeda screenshot per langkah; 30 dtk bawaan terlalu mepet.
   timeout: 90000,
-  reporter: [['./reporters/step-reporter.ts'], ['list'], ['html', { open: 'never' }]],
+  // cloud-reporter hanya aktif bila BACKEND_URL + RUNNER_TOKEN ada (GitHub Actions).
+  reporter: [['./reporters/step-reporter.ts'], ['./reporters/cloud-reporter.ts'], ['list'], ['html', { open: 'never' }]],
   use: {
     baseURL,
     // UI HelpMyCV mengikuti bahasa browser; dikunci ke Inggris supaya locator stabil.
