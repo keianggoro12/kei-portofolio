@@ -250,7 +250,7 @@ export default function RunView() {
         )}
 
         <div className="mt-8 grid gap-6 lg:grid-cols-[300px_1fr]">
-          <aside className="rounded-3xl border border-white/10 bg-white/[0.03] p-3">
+          <aside className="min-w-0 rounded-3xl border border-white/10 bg-white/[0.03] p-3">
             <p className="px-2 py-2 font-mono text-xs uppercase tracking-widest text-white/45">{ui.runner.tests}</p>
             {!run && <div className="h-40 animate-pulse rounded-2xl bg-white/5" />}
             <ul className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1 lg:mx-0 lg:block lg:space-y-1 lg:overflow-visible lg:px-0 lg:pb-0">
