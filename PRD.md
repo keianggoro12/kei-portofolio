@@ -3,7 +3,6 @@
 **Version:** 0.1
 **Updated:** 2026-10-24
 **Status:** Draft
-**Sumber:** `kick-off.md`
 
 ---
 
