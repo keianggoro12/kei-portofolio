@@ -77,7 +77,8 @@ function StepsPane({ test, live }: { test: RunTest; live: boolean }) {
 
   return (
     <div className="grid gap-4 xl:grid-cols-[1fr_260px]">
-      <div>
+      {/* min-w-0: tanpa ini lebar asli screenshot (1280px) mendorong grid keluar panel. */}
+      <div className="min-w-0">
         {shot ? (
           <div className="relative overflow-hidden rounded-2xl bg-black">
             <img key={shot.screenshotKey} src={artifactUrl(shot.screenshotKey!)} alt={shot.label} className="aspect-video w-full animate-fade-up object-contain [animation-duration:.3s]" />
