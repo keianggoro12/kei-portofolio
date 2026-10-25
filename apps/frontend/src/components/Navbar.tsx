@@ -8,8 +8,8 @@ import { cn } from '@/lib/utils';
 
 export function Logo({ className }: { className?: string }) {
   return (
-    <Link to="/" className={cn('group flex items-center gap-2.5 font-display text-lg font-bold tracking-tight', className)}>
-      <span className="grid h-9 w-9 place-items-center rounded-xl bg-ink text-primary shadow-[inset_0_0_0_1px_hsl(var(--primary)/0.35)] transition group-hover:rotate-[-6deg] dark:text-primary">
+    <Link to="/" className={cn('group flex items-center gap-2 sm:gap-2.5 font-display text-base font-bold tracking-tight sm:text-lg', className)}>
+      <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-ink text-primary shadow-[inset_0_0_0_1px_hsl(var(--primary)/0.35)] transition group-hover:rotate-[-6deg] dark:text-primary">
         {/* Monogram K, sama dengan favicon */}
         <svg viewBox="0 0 64 64" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="7" strokeLinecap="round" strokeLinejoin="round">
           <path d="M22 16v32M44 16 26.5 32.5 44 48" />
@@ -50,7 +50,9 @@ export function Navbar() {
         scrolled || open || solid ? 'border-b bg-background/80 backdrop-blur-xl' : 'border-b border-transparent'
       )}
     >
-      <nav className="container flex h-16 items-center justify-between gap-4">
+      {/* Gap lebih rapat di mobile: di layar 320px logo + kontrol meluber ~13px dan
+          tombol menu terpotong. */}
+      <nav className="container flex h-16 items-center justify-between gap-2 sm:gap-4">
         <Logo />
 
         <ul className="hidden items-center gap-1 md:flex">
@@ -70,7 +72,7 @@ export function Navbar() {
           ))}
         </ul>
 
-        <div className="flex items-center gap-1.5">
+        <div className="flex shrink-0 items-center gap-1 sm:gap-1.5">
           <div className="flex rounded-full border bg-card/60 p-0.5 text-xs font-semibold" role="group" aria-label="Language">
             {(['en', 'id'] as const).map((code) => (
               <button
@@ -79,7 +81,7 @@ export function Navbar() {
                 onClick={() => setLang(code)}
                 aria-pressed={lang === code}
                 className={cn(
-                  'rounded-full px-2.5 py-1 uppercase transition',
+                  'rounded-full px-2 py-1 uppercase transition sm:px-2.5',
                   lang === code ? 'bg-foreground text-background' : 'text-muted-foreground hover:text-foreground'
                 )}
               >
