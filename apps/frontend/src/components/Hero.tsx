@@ -20,17 +20,21 @@ export function Hero() {
       <div className="pointer-events-none absolute -top-40 left-1/2 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-primary/20 blur-[120px]" />
       <div className="pointer-events-none absolute right-[-10%] top-40 h-[360px] w-[360px] rounded-full bg-accent/20 blur-[120px]" />
 
-      <div className="container relative grid items-center gap-14 pb-20 lg:grid-cols-[1.1fr_0.9fr] lg:gap-10 lg:pb-28">
-        <div>
+      {/* `grid-cols-1` (minmax(0, 1fr)) di mobile: kolom implisit `auto` melebar
+          mengikuti konten terlebar, sehingga di layar sempit seluruh kolom
+          meluber ke kanan dan teks terpotong. */}
+      <div className="container relative grid grid-cols-1 items-center gap-14 pb-20 lg:grid-cols-[1.1fr_0.9fr] lg:gap-10 lg:pb-28">
+        <div className="min-w-0">
           <Link
             to="/lab"
-            className="group mb-4 inline-flex max-w-full animate-fade-up items-center gap-2 rounded-full border border-primary/25 bg-primary/5 py-1 pl-1 pr-3 text-xs text-muted-foreground transition hover:border-primary/50 hover:text-foreground"
+            className="group mb-4 inline-flex max-w-full animate-fade-up items-center gap-2 rounded-2xl border border-primary/25 sm:rounded-full bg-primary/5 py-1 pl-1 pr-3 text-xs text-muted-foreground transition hover:border-primary/50 hover:text-foreground"
           >
             <span className="shrink-0 whitespace-nowrap rounded-full bg-primary/15 px-2 py-0.5 font-semibold text-primary">{ui.nav.lab}</span>
-            <span className="truncate">{ui.hero.labBanner}</span>
+            {/* Di mobile teksnya boleh turun baris alih-alih terpotong elipsis. */}
+            <span className="min-w-0 sm:truncate">{ui.hero.labBanner}</span>
             <ArrowRight className="h-3.5 w-3.5 shrink-0 transition group-hover:translate-x-0.5" />
           </Link>
-          <div className="flex animate-fade-up items-center gap-3">
+          <div className="flex min-w-0 animate-fade-up items-center gap-3">
             <Avatar className="h-11 w-11 lg:hidden" />
             <p className="chip">
             <span className="h-2 w-2 animate-pulse-ring rounded-full bg-primary" />
@@ -79,7 +83,7 @@ export function Hero() {
         </div>
 
         {/* Foto + terminal test */}
-        <div className="relative mx-auto w-full max-w-md animate-fade-up [animation-delay:200ms] lg:max-w-none">
+        <div className="relative mx-auto w-full min-w-0 max-w-md animate-fade-up [animation-delay:200ms] lg:max-w-none">
           <div className="relative ml-auto aspect-[4/5] w-[86%] overflow-hidden rounded-[2rem] border bg-muted shadow-2xl shadow-primary/10 sm:w-[78%]">
             <img
               src={profile.photo}
@@ -95,7 +99,13 @@ export function Hero() {
               <p className="mt-1 text-[10px] uppercase tracking-widest text-white/70">{ui.hero.passRate}</p>
             </div>
           </div>
-          <Link to="/lab" aria-label={ui.hero.cta.lab} className="group absolute -bottom-10 left-0 w-full animate-float sm:w-[94%] lg:-left-12">
+          {/* Di mobile terminal ikut alur dan hanya menumpuk bagian bawah foto:
+              versi absolute menutupi hampir seluruh foto begitu barisnya turun. */}
+          <Link
+            to="/lab"
+            aria-label={ui.hero.cta.lab}
+            className="group relative -mt-24 block w-full animate-float sm:absolute sm:-bottom-10 sm:left-0 sm:mt-0 sm:w-[94%] lg:-left-12"
+          >
             <TestTerminal className="transition group-hover:border-primary/50" />
           </Link>
         </div>

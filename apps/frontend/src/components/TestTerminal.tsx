@@ -62,7 +62,7 @@ export function TestTerminal({ className }: { className?: string }) {
         <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
         <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
         <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
-        <span className="ml-2 text-[11px] text-white/45">~/kei $ npx playwright test {ui.terminal.title}</span>
+        <span className="ml-2 min-w-0 text-[11px] text-white/45">~/kei $ npx playwright test {ui.terminal.title}</span>
       </div>
       <div className="space-y-1 px-4 py-3.5" aria-hidden>
         <p className="text-white/45">{ui.terminal.running}</p>
@@ -70,11 +70,12 @@ export function TestTerminal({ className }: { className?: string }) {
           <p key={test.title} className={cn('flex gap-2 transition-opacity duration-300', i < done ? 'opacity-100' : 'opacity-0')}>
             <span className="text-emerald-400">✓</span>
             <span className="hidden text-white/35 sm:inline">{i + 1}</span>
-            <span className="flex-1 truncate">
+            {/* `min-w-0` agar baris bisa mengecil; di mobile judulnya turun baris. */}
+            <span className="min-w-0 flex-1 sm:truncate">
               <span className="hidden text-white/45 sm:inline">Kei › </span>
               {test.title}
             </span>
-            <span className="text-white/35">{test.ms}ms</span>
+            <span className="shrink-0 text-white/35">{test.ms}ms</span>
           </p>
         ))}
         <p className={cn('pt-2 transition-opacity duration-500', finished ? 'opacity-100' : 'opacity-0')}>
