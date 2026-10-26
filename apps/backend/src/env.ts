@@ -11,6 +11,8 @@ export interface Env {
   TURNSTILE_SECRET_KEY?: string;
   RUNNER_TOKEN?: string;
   IP_HASH_SALT?: string;
+  /** Fine-grained PAT read-only ke semua repo milik sendiri, untuk statistik GitHub. */
+  GITHUB_STATS_TOKEN?: string;
 }
 
 export type AppEnv = { Bindings: Env };

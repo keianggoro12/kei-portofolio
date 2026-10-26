@@ -1,4 +1,4 @@
-import type { RunDetail, RunLog, RunStatus, RunSummary } from '@kei/shared';
+import type { GithubStats, RunDetail, RunLog, RunStatus, RunSummary } from '@kei/shared';
 import { useEffect, useState } from 'react';
 
 export interface LabConfig {
@@ -29,6 +29,7 @@ export const api = {
   logs: (id: string, after: number) => request<{ logs: RunLog[] }>(`/runs/${id}/logs?after=${after}`).then((r) => r.logs),
   createRun: (project: string, turnstileToken: string) =>
     request<{ runId: string; joined: boolean }>('/runs', { method: 'POST', body: JSON.stringify({ project, turnstileToken }) }),
+  github: () => request<{ stats: GithubStats }>('/github').then((r) => r.stats),
 };
 
 export function artifactUrl(key: string): string {

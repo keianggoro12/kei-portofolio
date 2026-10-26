@@ -1,4 +1,5 @@
 import type { Env } from './env';
+import { refreshGithubStats } from './githubStats';
 import { isoMinutesAgo, nowIso } from './lib';
 
 const QUEUED_TIMEOUT_MIN = 15;
@@ -6,8 +7,16 @@ const RUNNING_IDLE_TIMEOUT_MIN = 30;
 const RETENTION_DAYS = 30;
 const RETENTION_BATCH = 10;
 
-/** Run macet → expired (PRD §5.3 langkah 7), lalu hapus run > 30 hari kecuali pinned (SEC-07). */
+/** Dua tugas saling lepas: gagal satu tidak membatalkan yang lain; dicoba lagi di cron berikutnya. */
 export async function runScheduled(env: Env): Promise<void> {
+  const results = await Promise.allSettled([cleanupRuns(env), refreshGithubStats(env)]);
+  for (const result of results) {
+    if (result.status === 'rejected') console.error((result.reason as Error).message);
+  }
+}
+
+/** Run macet → expired (PRD §5.3 langkah 7), lalu hapus run > 30 hari kecuali pinned (SEC-07). */
+async function cleanupRuns(env: Env): Promise<void> {
   await env.DB.prepare(
     `UPDATE runs SET status = 'expired', finished_at = ?
      WHERE (status = 'queued' AND created_at < ?)

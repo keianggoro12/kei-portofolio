@@ -19,6 +19,7 @@ TURNSTILE_SITE_KEY = "0x4AAAAAAFkLimn9ljGduBdv"
 #   TURNSTILE_SECRET_KEY  secret key widget Turnstile
 #   RUNNER_TOKEN          token bersama dengan GitHub Actions (secret RUNNER_TOKEN)
 #   IP_HASH_SALT          garam untuk hash IP pengunjung
+#   GITHUB_STATS_TOKEN    fine-grained PAT, All repositories, Contents + Metadata: Read-only (statistik GitHub)
 
 [[d1_databases]]
 binding = "DB"
@@ -30,6 +31,6 @@ migrations_dir = "migrations"
 binding = "ARTIFACTS"
 bucket_name = "kei-portfolio-artifacts"
 
-# Watchdog run macet + retensi 30 hari (PRD §5.3 langkah 7, SEC-07).
+# Watchdog run macet + retensi 30 hari (PRD §5.3 langkah 7, SEC-07), lalu segarkan statistik GitHub bila basi.
 [triggers]
 crons = ["*/5 * * * *"]

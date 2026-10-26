@@ -6,7 +6,7 @@ import { cn, formatDuration, formatMonth, monthsBetween } from '@/lib/utils';
 import { Reveal, SectionHeader } from './Reveal';
 
 /** Angka naik dari 0 saat terlihat. */
-function CountUp({ value, suffix = '' }: { value: number; suffix?: string }) {
+export function CountUp({ value, suffix = '' }: { value: number; suffix?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const [shown, setShown] = useState(0);
 
