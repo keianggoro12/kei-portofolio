@@ -409,6 +409,6 @@ Tidak ada.
 | Visibilitas repo | Repo portofolio **publik**: menit GitHub Actions gratis, kode test bisa ditunjukkan ke interviewer. Konsekuensi: tidak ada secret, URL internal, atau kredensial di kode; semua lewat GitHub Secrets / Worker secret | 2026-10-24 |
 | `data-testid` | Boleh ditambahkan di repo HelpMyCV. Locator test memprioritaskan `getByTestId`, lalu role/label | 2026-10-24 |
 | Environment target | Tanpa staging terpisah. Test langsung ke production HelpMyCV dengan akun bot dan aturan test data §6 | 2026-10-24 |
-| Domain | Pakai bawaan `*.workers.dev`, tanpa domain custom | 2026-10-24 |
+| Domain | Frontend di `kei-portfolio.eiklab.com` (custom domain Worker); `*.workers.dev` tetap aktif sebagai cadangan | 2026-10-30 |
 | Login | Hanya untuk owner (§4.4), tanpa registrasi | 2026-10-24 |
 | Penyimpanan hasil run | Tiap run Actions otomatis tersimpan ke D1 + R2 lewat Worker (§8.1) | 2026-10-24 |

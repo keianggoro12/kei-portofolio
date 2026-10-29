@@ -7,15 +7,15 @@
 I lead QA at Tempo and build end-to-end test automation with **Playwright** and **TypeScript**. I define test plans, execute test cases, build automation frameworks, and work cross-functionally from backlog grooming to production release. I also build and ship my own web apps, so I understand the full SDLC from both sides of the bug report.
 
 <p>
-  <a href="https://kei-portfolio-frontend.keianggoro12.workers.dev/"><img src="https://img.shields.io/badge/Portfolio-kei--portfolio-10B981?style=for-the-badge&logo=cloudflare&logoColor=white" alt="Portfolio"></a>
-  <a href="https://kei-portfolio-frontend.keianggoro12.workers.dev/lab"><img src="https://img.shields.io/badge/QA%20Lab-Watch%20my%20tests%20run-7C3AED?style=for-the-badge&logo=playwright&logoColor=white" alt="QA Lab"></a>
+  <a href="https://kei-portfolio.eiklab.com/"><img src="https://img.shields.io/badge/Portfolio-kei--portfolio-10B981?style=for-the-badge&logo=cloudflare&logoColor=white" alt="Portfolio"></a>
+  <a href="https://kei-portfolio.eiklab.com/lab"><img src="https://img.shields.io/badge/QA%20Lab-Watch%20my%20tests%20run-7C3AED?style=for-the-badge&logo=playwright&logoColor=white" alt="QA Lab"></a>
 </p>
 
 ## 🧪 QA Lab: don't take my word for it
 
 My portfolio runs **real Playwright tests against my production app** on demand. Press _Run_, a GitHub Actions VM spins up, and every step streams back live with screenshots, video, and a report stored in Cloudflare D1 + R2.
 
-👉 [Watch the tests run](https://kei-portfolio-frontend.keianggoro12.workers.dev/lab) · [Source](https://github.com/keianggoro12/kei-portofolio)
+👉 [Watch the tests run](https://kei-portfolio.eiklab.com/lab) · [Source](https://github.com/keianggoro12/kei-portofolio)
 
 ## 💼 Experience
 
@@ -31,7 +31,7 @@ My portfolio runs **real Playwright tests against my production app** on demand.
 
 | Project | What it is | Automation |
 | --- | --- | --- |
-| [**Kei With Tools**](https://helpmycv-frontend.keianggoro12.workers.dev/) | CV builder + 37 PDF, image & developer tools in one account | ✅ Playwright suite, runnable in the [QA Lab](https://kei-portfolio-frontend.keianggoro12.workers.dev/lab) |
+| [**Kei With Tools**](https://helpmycv-frontend.keianggoro12.workers.dev/) | CV builder + 37 PDF, image & developer tools in one account | ✅ Playwright suite, runnable in the [QA Lab](https://kei-portfolio.eiklab.com/lab) |
 | [**Jastip Bang Parli**](https://jastip-frontend.keianggoro12.workers.dev/) | Shop online in Jakarta, receive it in your hometown | ⏳ Coming |
 | [**Undangan Digital**](https://undangan-frontend.keianggoro12.workers.dev/) | Wedding invitations that get opened, read, and answered | ⏳ Coming |
 
@@ -65,10 +65,10 @@ Stack: Next.js, React, Hono, Cloudflare Workers, D1, R2, GitHub Actions.
 
 Live from my portfolio's backend: commits across public **and private** repos over the last 12 months, plus the languages I write most. Refreshed every few hours.
 
-<a href="https://kei-portfolio-frontend.keianggoro12.workers.dev/#github">
+<a href="https://kei-portfolio.eiklab.com/#github">
   <picture>
-    <source media="(prefers-color-scheme: light)" srcset="https://kei-portfolio-frontend.keianggoro12.workers.dev/api/github/card.svg?theme=light">
-    <img alt="Kei's GitHub activity and most used languages" src="https://kei-portfolio-frontend.keianggoro12.workers.dev/api/github/card.svg?theme=dark" width="100%">
+    <source media="(prefers-color-scheme: light)" srcset="https://kei-portfolio.eiklab.com/api/github/card.svg?theme=light">
+    <img alt="Kei's GitHub activity and most used languages" src="https://kei-portfolio.eiklab.com/api/github/card.svg?theme=dark" width="100%">
   </picture>
 </a>
 
@@ -85,5 +85,5 @@ Live from my portfolio's backend: commits across public **and private** repos ov
   <a href="mailto:keianggoro12@gmail.com"><img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email"></a>
   <a href="https://www.linkedin.com/in/juliardi-dwi-anggoro-b40449257/"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"></a>
   <a href="https://www.instagram.com/keianggoro12/"><img src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white" alt="Instagram"></a>
-  <a href="https://kei-portfolio-frontend.keianggoro12.workers.dev/"><img src="https://img.shields.io/badge/Portfolio-111111?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Portfolio"></a>
+  <a href="https://kei-portfolio.eiklab.com/"><img src="https://img.shields.io/badge/Portfolio-111111?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Portfolio"></a>
 </p>

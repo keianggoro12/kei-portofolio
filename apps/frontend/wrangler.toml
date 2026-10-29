@@ -2,6 +2,10 @@ name = "kei-portfolio-frontend"
 main = "worker/index.ts"
 compatibility_date = "2026-10-01"
 
+# Domain utama. workers.dev tetap hidup agar tautan lama tidak mati.
+workers_dev = true
+routes = [{ pattern = "kei-portfolio.eiklab.com", custom_domain = true }]
+
 # SPA statis (PRD §5.2: Workers static assets, bukan Pages).
 # Route yang tidak cocok dengan file dilayani index.html, routing di React Router.
 [assets]

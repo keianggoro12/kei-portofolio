@@ -26,7 +26,7 @@ jobs:
     # Secret Cloudflare hanya terbuka untuk job di environment ini (PRD GHA-04).
     environment:
       name: production
-      url: https://kei-portfolio-frontend.keianggoro12.workers.dev
+      url: https://kei-portfolio.eiklab.com
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
