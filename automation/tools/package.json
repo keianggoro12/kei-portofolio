@@ -1,8 +1,8 @@
 {
-  "name": "helpmycv-automation",
+  "name": "tools-automation",
   "version": "1.0.0",
   "private": true,
-  "description": "End-to-end automation for HelpMyCV (https://helpmycv-frontend.keianggoro12.workers.dev)",
+  "description": "End-to-end automation for Tools from Eiklab (https://tools.eiklab.com)",
   "scripts": {
     "test": "playwright test",
     "test:auth": "playwright test tests/auth/",

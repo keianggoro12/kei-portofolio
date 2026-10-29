@@ -2,7 +2,7 @@ name = "kei-portfolio-frontend"
 main = "worker/index.ts"
 compatibility_date = "2026-10-01"
 
-# Domain utama. workers.dev tetap hidup agar tautan lama tidak mati.
+# Domain utama. workers.dev tetap hidup hanya untuk redirect 301 ke domain ini (worker/index.ts).
 workers_dev = true
 routes = [{ pattern = "kei-portfolio.eiklab.com", custom_domain = true }]
 
@@ -12,7 +12,8 @@ routes = [{ pattern = "kei-portfolio.eiklab.com", custom_domain = true }]
 directory = "./dist"
 binding = "ASSETS"
 not_found_handling = "single-page-application"
-run_worker_first = ["/api/*"]
+# Semua request lewat Worker dulu supaya redirect workers.dev juga berlaku untuk aset.
+run_worker_first = true
 
 [[services]]
 binding = "BACKEND"

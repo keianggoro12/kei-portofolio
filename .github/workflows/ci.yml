@@ -41,7 +41,7 @@ jobs:
               - 'package-lock.json'
               - '.github/**'
             automation:
-              - 'automation/helpmycv/**'
+              - 'automation/tools/**'
               - 'packages/shared/src/runner.ts'
               - '.github/**'
 
@@ -79,12 +79,12 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: automation/helpmycv
+        working-directory: automation/tools
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
         with:
-          working-directory: automation/helpmycv
+          working-directory: automation/tools
       - name: Typecheck tests
         run: npm run typecheck
       # Memastikan semua spec bisa dimuat tanpa menjalankan browser.

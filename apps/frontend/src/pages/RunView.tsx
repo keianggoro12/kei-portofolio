@@ -215,7 +215,7 @@ export default function RunView() {
 
         <header className="mt-6 flex flex-wrap items-end justify-between gap-4">
           <div>
-            <p className="font-mono text-xs uppercase tracking-widest text-white/45">helpmycv / chromium · {run ? ui.runner.trigger[run.trigger] : '…'}</p>
+            <p className="font-mono text-xs uppercase tracking-widest text-white/45">tools / chromium · {run ? ui.runner.trigger[run.trigger] : '…'}</p>
             <h1 className="mt-2 font-display text-3xl font-bold sm:text-4xl">Run {runId.slice(0, 8)}</h1>
           </div>
           <div className="flex flex-wrap items-center gap-3">

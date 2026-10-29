@@ -31,9 +31,10 @@ My portfolio runs **real Playwright tests against my production app** on demand.
 
 | Project | What it is | Automation |
 | --- | --- | --- |
-| [**Kei With Tools**](https://helpmycv-frontend.keianggoro12.workers.dev/) | CV builder + 37 PDF, image & developer tools in one account | ✅ Playwright suite, runnable in the [QA Lab](https://kei-portfolio.eiklab.com/lab) |
+| [**Tools from Eiklab**](https://tools.eiklab.com/) | CV builder + 38 PDF, image & developer tools in one account | ✅ Playwright suite, runnable in the [QA Lab](https://kei-portfolio.eiklab.com/lab) |
 | [**Jastip Bang Parli**](https://jastip-frontend.keianggoro12.workers.dev/) | Shop online in Jakarta, receive it in your hometown | ⏳ Coming |
 | [**Undangan Digital**](https://undangan-frontend.keianggoro12.workers.dev/) | Wedding invitations that get opened, read, and answered | ⏳ Coming |
+| [**School from Eiklab**](https://school.eiklab.com/) | Learn Japanese from the first kana to the JLPT N5, in Indonesian | ⏳ Coming |
 
 Stack: Next.js, React, Hono, Cloudflare Workers, D1, R2, GitHub Actions.
 

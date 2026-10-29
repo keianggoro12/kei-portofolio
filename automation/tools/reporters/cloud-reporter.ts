@@ -19,7 +19,7 @@ import { stepsDirName } from '../utils/steps-dir';
 
 const BACKEND_URL = (process.env.BACKEND_URL || '').replace(/\/$/, '');
 const RUNNER_TOKEN = process.env.RUNNER_TOKEN || '';
-const PROJECT = 'helpmycv';
+const PROJECT = 'tools';
 const FLUSH_INTERVAL_MS = 1000;
 const ANSI = /\u001b\[[0-9;]*m/g;
 const MAX_BATCH = 100;

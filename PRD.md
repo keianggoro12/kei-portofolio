@@ -19,7 +19,7 @@ Pesan yang ingin disampaikan ke recruiter/klien: "Saya tidak hanya menulis test,
 ## 2. Tujuan
 
 1. Menampilkan profil Kei sebagai Senior QA Engineer dengan jelas dan cepat dibaca.
-2. Menampilkan project yang Kei develop sendiri: Jastip, HelpMyCV, Undangan.
+2. Menampilkan project yang Kei develop sendiri: Jastip, Tools from Eiklab, Undangan.
 3. Membuktikan kemampuan QA lewat automation yang bisa dilihat berjalan, bukan hanya diklaim.
 4. Menyimpan riwayat run (pass rate, durasi, flaky test) sebagai bukti kualitas jangka panjang.
 
@@ -28,7 +28,7 @@ Pesan yang ingin disampaikan ke recruiter/klien: "Saya tidak hanya menulis test,
 - Bukan platform testing umum untuk orang lain (pengunjung tidak bisa menambah test atau target sendiri).
 - Bukan load/performance testing.
 - Bukan visual regression pixel-perfect.
-- Tidak semua project punya automation. Saat ini hanya **HelpMyCV**.
+- Tidak semua project punya automation. Saat ini hanya **Tools from Eiklab**.
 
 ---
 
@@ -50,7 +50,7 @@ Pesan yang ingin disampaikan ke recruiter/klien: "Saya tidak hanya menulis test,
 | --- | --- |
 | `/` | Hero (nama, "Senior QA Engineer", ringkasan 1 kalimat), CTA ke QA Lab dan CV, highlight angka (tahun pengalaman, jumlah test case, pass rate terakhir) |
 | `/about` | Profil, pengalaman kerja, skill (manual testing, automation, API testing, CI/CD, tools) |
-| `/projects` | Kartu project: Jastip, HelpMyCV, Undangan. Tiap kartu: deskripsi, stack, link live, dan badge **Automation: Available / Not yet** |
+| `/projects` | Kartu project: Jastip, Tools from Eiklab, Undangan. Tiap kartu: deskripsi, stack, link live, dan badge **Automation: Available / Not yet** |
 | `/projects/:slug` | Detail project + case study QA (strategi test, risiko, apa yang diotomasi dan kenapa) |
 | `/lab` | QA Lab: daftar project yang punya automation + status run terakhir |
 | `/lab/:project` | Runner per project (lihat §4.2) |
@@ -130,7 +130,7 @@ Sumber: `Resume Kei Anggoro Publik.pdf` (menggantikan `resume kei desu.pdf`). Ko
 | Tahun di QA | Dihitung dari Mar 2024 saat build | Jangan dibulatkan ke atas |
 | Jumlah test case automation | D1 (`test_results` distinct `tc_id`) | Live |
 | Pass rate 30 hari | D1 `runs` | Live |
-| Project live | Daftar project | 3 (Jastip, HelpMyCV, Undangan) |
+| Project live | Daftar project | 3 (Jastip, Tools from Eiklab, Undangan) |
 
 **Aturan privasi**
 
@@ -162,13 +162,13 @@ Worker "kei-portfolio-backend"    (apps/backend)
    │
    │  GitHub REST API: workflow_dispatch (token disimpan sebagai Worker secret)
    ▼
-GitHub Actions workflow "e2e-helpmycv.yml"
+GitHub Actions workflow "e2e-tools.yml"
    └─ Playwright (Chromium) + custom reporter
         │  POST event + upload artifact (Bearer RUNNER_TOKEN)
         ▼
       kembali ke backend /api/runner/*
         │
-        └─ Target: https://helpmycv-frontend.keianggoro12.workers.dev/
+        └─ Target: https://tools.eiklab.com
 ```
 
 ### 5.2 Kenapa begini
@@ -176,8 +176,8 @@ GitHub Actions workflow "e2e-helpmycv.yml"
 | Keputusan | Alasan |
 | --- | --- |
 | **Runner di GitHub Actions, bukan di Worker** | Worker tidak bisa menjalankan `@playwright/test` beserta browser penuh, video recording, dan test runner. Actions memberi VM Linux sungguhan dan gratis untuk repo publik. |
-| **Workers static assets, bukan Pages** | Project lain (HelpMyCV, Jastip, Undangan) sudah di Workers. Pages tidak dibutuhkan. |
-| **Frontend dan backend Worker terpisah** | Pola sama dengan HelpMyCV: deploy, log, dan rollback masing-masing berdiri sendiri. Perubahan UI tidak men-deploy ulang API, dan sebaliknya. |
+| **Workers static assets, bukan Pages** | Project lain (Tools from Eiklab, Jastip, Undangan) sudah di Workers. Pages tidak dibutuhkan. |
+| **Frontend dan backend Worker terpisah** | Pola sama dengan Tools from Eiklab: deploy, log, dan rollback masing-masing berdiri sendiri. Perubahan UI tidak men-deploy ulang API, dan sebaliknya. |
 | **`/api/*` lewat service binding, bukan dipanggil langsung** | `workers.dev` ada di Public Suffix List, jadi dua subdomain `*.keianggoro12.workers.dev` dianggap beda site dan cookie sesi `SameSite=Strict` tidak terkirim. Dengan service binding, browser hanya bicara ke origin frontend: cookie, CORS, dan WebSocket jadi sederhana. |
 | **Durable Object untuk live** | `socket.io` tidak jalan di Workers. Durable Object dengan WebSocket (hibernation) menggantikan peran socket server: runner POST event → DO broadcast ke semua penonton. D1 saja tidak bisa push. |
 | **D1 untuk data terstruktur, R2 untuk file** | Event dan hasil test kecil dan perlu di-query (riwayat, pass rate). Screenshot/video besar dan cukup diambil per URL. |
@@ -185,10 +185,10 @@ GitHub Actions workflow "e2e-helpmycv.yml"
 
 ### 5.3 Alur satu run
 
-1. Pengunjung klik **Run** di `/lab/helpmycv`. Browser mengirim token Turnstile.
+1. Pengunjung klik **Run** di `/lab/tools`. Browser mengirim token Turnstile.
 2. Worker: validasi Turnstile, cek rate limit dan apakah sudah ada run aktif.
    - Ada run aktif → kembalikan `runId` run itu (pengunjung ikut menonton).
-   - Tidak ada → buat baris `runs` (`status=queued`), panggil `POST /repos/{owner}/{repo}/actions/workflows/e2e-helpmycv.yml/dispatches` dengan input `{ run_id, suite }`.
+   - Tidak ada → buat baris `runs` (`status=queued`), panggil `POST /repos/{owner}/{repo}/actions/workflows/e2e-tools.yml/dispatches` dengan input `{ run_id, suite }`.
 3. Browser membuka WebSocket ke `RunChannel` untuk `runId` itu, dan memuat event yang sudah ada dari D1.
 4. Job Actions mulai. Reporter mengirim `run.started` (berisi `github_run_id` dan URL run).
 5. Selama test: `test.begin`, `step` (+ upload screenshot ke R2), `log`, `test.end` (+ upload video/network).
@@ -204,7 +204,7 @@ kei-portofolio/
 ├─ apps/backend/             # Hono API, Durable Object RunChannel, cron
 │  ├─ migrations/            # D1 migrations
 │  └─ wrangler.toml          # D1, R2, DO, cron
-├─ automation/helpmycv/      # Project Playwright (pola POM sama seperti automation-frontend-single-brand)
+├─ automation/tools/      # Project Playwright (pola POM sama seperti automation-frontend-single-brand)
 │  ├─ tests/ pages/ locators/ helpers/ fixtures/ utils/
 │  ├─ reporters/cloud-reporter.ts
 │  └─ playwright.config.ts
@@ -215,7 +215,7 @@ kei-portofolio/
       ├─ ci.yml                  # PR: typecheck, lint, test, build
       ├─ deploy-frontend.yml
       ├─ deploy-backend.yml
-      └─ e2e-helpmycv.yml        # workflow_dispatch + schedule
+      └─ e2e-tools.yml        # workflow_dispatch + schedule
 ```
 
 Automation project berikutnya (Jastip, Undangan) = folder baru di `automation/` + satu workflow `e2e-<project>.yml` + satu entri di daftar project.
@@ -229,7 +229,7 @@ Prinsip: satu workflow = satu tugas, nama file menjelaskan tugasnya, dan tiap wo
 | `ci.yml` | `pull_request` ke `main` | Job `frontend`, `backend`, `automation` paralel, masing-masing hanya bila path-nya berubah (`dorny/paths-filter`): typecheck, lint, unit test, build. Backend juga `wrangler deploy --dry-run`. | Tidak ada |
 | `deploy-frontend.yml` | `push` ke `main` di `apps/frontend/**`, `packages/shared/**`; `workflow_dispatch` | Build Vite → `wrangler deploy` | `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID` |
 | `deploy-backend.yml` | `push` ke `main` di `apps/backend/**`, `packages/shared/**`; `workflow_dispatch` | `wrangler d1 migrations apply --remote` → `wrangler deploy` | `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID` |
-| `e2e-helpmycv.yml` | `workflow_dispatch` (input `run_id`, `suite`), `schedule` harian | Install Chromium (cache) → `playwright test --grep @<suite>` → cloud reporter kirim hasil ke backend | `RUNNER_TOKEN`, `BACKEND_URL`, `HELPMYCV_BOT_EMAIL`, `HELPMYCV_BOT_PASSWORD` |
+| `e2e-tools.yml` | `workflow_dispatch` (input `run_id`, `suite`), `schedule` harian | Install Chromium (cache) → `playwright test --grep @<suite>` → cloud reporter kirim hasil ke backend | `RUNNER_TOKEN`, `BACKEND_URL`, `TOOLS_BOT_EMAIL`, `TOOLS_BOT_PASSWORD` |
 
 Aturan:
 
@@ -237,19 +237,19 @@ Aturan:
 | --- | --- |
 | GHA-01 | Langkah setup yang sama (checkout, Node 22, `npm ci` dengan cache) ditulis sekali di `.github/actions/setup/action.yml` dan dipakai semua workflow. |
 | GHA-02 | `permissions: contents: read` di semua workflow; tidak ada izin lebih dari yang dibutuhkan. |
-| GHA-03 | `concurrency` per workflow: deploy `deploy-frontend` / `deploy-backend` tidak boleh tumpang tindih (`cancel-in-progress: false`); `e2e-helpmycv` maks 1 run (`group: e2e-helpmycv`). |
+| GHA-03 | `concurrency` per workflow: deploy `deploy-frontend` / `deploy-backend` tidak boleh tumpang tindih (`cancel-in-progress: false`); `e2e-tools` maks 1 run (`group: e2e-tools`). |
 | GHA-04 | Deploy memakai GitHub Environment `production`, sehingga secret Cloudflare hanya terbuka untuk job deploy. |
 | GHA-05 | Backend selalu migrasi D1 dulu baru deploy. Migration harus aman dijalankan ulang dan kompatibel dengan kode lama (tambah kolom/tabel, jangan hapus di rilis yang sama). |
 | GHA-06 | Bila perubahan menyentuh `packages/shared/**`, backend deploy dulu baru frontend, supaya frontend tidak memanggil API yang belum ada. Caranya: `deploy-frontend.yml` memakai `workflow_run` setelah `deploy-backend.yml` sukses untuk perubahan shared. |
-| GHA-07 | `e2e-helpmycv.yml` tidak pernah dipicu `pull_request`, supaya secret bot tidak terekspos ke kode dari PR. |
-| GHA-08 | Nama job dan step jelas dan berbahasa Inggris (`Build frontend`, `Apply D1 migrations`), mengikuti workflow HelpMyCV. |
+| GHA-07 | `e2e-tools.yml` tidak pernah dipicu `pull_request`, supaya secret bot tidak terekspos ke kode dari PR. |
+| GHA-08 | Nama job dan step jelas dan berbahasa Inggris (`Build frontend`, `Apply D1 migrations`), mengikuti workflow Tools from Eiklab. |
 | GHA-09 | Bila step `e2e` gagal sebelum reporter sempat mengirim `run.finished`, step `if: always()` di akhir job mengirim `run.finished` dengan `status=failed`, supaya run di situs tidak menggantung. |
 
 ---
 
-## 6. Suite & coverage HelpMyCV
+## 6. Suite & coverage Tools from Eiklab
 
-Target: `https://helpmycv-frontend.keianggoro12.workers.dev/` (production).
+Target: `https://tools.eiklab.com` (production).
 
 | Suite | Isi | Siapa yang boleh memicu | Estimasi durasi |
 | --- | --- | --- | --- |
@@ -264,9 +264,9 @@ Target: `https://helpmycv-frontend.keianggoro12.workers.dev/` (production).
 | Auto CV (AI) | Memakan kuota API AI berbayar tiap run. |
 | Login Google | OAuth Google tidak bisa diotomasi dengan stabil dan melanggar ToS bila dipaksa. |
 | Area admin | Tidak boleh ada kredensial admin di runner yang bisa dipicu publik. |
-| Bagikan PDF, Konverter PDF server-side | Menulis ke R2 HelpMyCV / memakai penyedia konversi berbayar. |
+| Bagikan PDF, Konverter PDF server-side | Menulis ke R2 Tools from Eiklab / memakai penyedia konversi berbayar. |
 
-Catatan untuk case study: PRD HelpMyCV §8 menyebut alat yang butuh browser sungguhan (render HTML ke gambar, PDF ke gambar, sensor, canvas DB Diagram) belum terotomasi. QA Lab menutup celah ini.
+Catatan untuk case study: PRD Tools from Eiklab §8 menyebut alat yang butuh browser sungguhan (render HTML ke gambar, PDF ke gambar, sensor, canvas DB Diagram) belum terotomasi. QA Lab menutup celah ini.
 
 ### Aturan test data
 
@@ -278,7 +278,7 @@ Catatan untuk case study: PRD HelpMyCV §8 menyebut alat yang butuh browser sung
 
 ## 7. Keamanan & batas pemakaian
 
-Tombol Run publik berarti siapa pun bisa memakai menit GitHub Actions dan mengirim traffic ke production HelpMyCV. Karena itu:
+Tombol Run publik berarti siapa pun bisa memakai menit GitHub Actions dan mengirim traffic ke production Tools from Eiklab. Karena itu:
 
 | ID | Aturan |
 | --- | --- |
@@ -289,7 +289,7 @@ Tombol Run publik berarti siapa pun bisa memakai menit GitHub Actions dan mengir
 | SEC-05 | Kuota publik: maks 3 run / IP / hari (IP disimpan sebagai hash) dan maks 20 run publik / hari total. Bisa diubah owner. |
 | SEC-06 | Screenshot/video tidak boleh memperlihatkan password. Field password di-mask sebelum `snap`, dan log tidak mencetak kredensial. |
 | SEC-07 | Artifact di R2 dibaca lewat Worker (bukan bucket publik), dengan retensi 30 hari; run yang ditandai owner sebagai "pinned" tidak dihapus. |
-| SEC-08 | Workflow `e2e-helpmycv.yml` tidak berjalan untuk `pull_request` dari fork, supaya secret tidak bocor. |
+| SEC-08 | Workflow `e2e-tools.yml` tidak berjalan untuk `pull_request` dari fork, supaya secret tidak bocor. |
 
 ---
 
@@ -367,7 +367,7 @@ Endpoint:
 | NFR-05 | Responsif sampai lebar 360 px. Tab Langkah tetap bisa dipakai di HP. |
 | NFR-06 | Light/dark, mengikuti preferensi sistem. |
 | NFR-07 | Bahasa: Inggris (utama) dan Indonesia. |
-| NFR-08 | Test HelpMyCV stabil: flaky rate < 5% dalam 30 hari. |
+| NFR-08 | Test Tools from Eiklab stabil: flaky rate < 5% dalam 30 hari. |
 
 ---
 
@@ -376,8 +376,8 @@ Endpoint:
 | Fase | Hasil | Selesai bila |
 | --- | --- | --- |
 | **M1 — Portofolio statis** | Home, About, Projects, Contact di frontend Worker; `ci.yml`, `deploy-frontend.yml`, `deploy-backend.yml` | Live di `*.workers.dev`, PR dicek CI, deploy otomatis dari `main` |
-| **M2 — Suite HelpMyCV** | `automation/helpmycv` dengan suite `smoke` & `sanity`, jalan di Actions (manual dispatch), artifact sebagai GitHub artifact | Run hijau 5× berturut-turut |
-| **M3 — Hasil ke D1 + R2** | Cloud reporter, API runner, halaman replay run | Run dari Actions bisa dibuka di `/lab/helpmycv/runs/:id` |
+| **M2 — Suite Tools from Eiklab** | `automation/tools` dengan suite `smoke` & `sanity`, jalan di Actions (manual dispatch), artifact sebagai GitHub artifact | Run hijau 5× berturut-turut |
+| **M3 — Hasil ke D1 + R2** | Cloud reporter, API runner, halaman replay run | Run dari Actions bisa dibuka di `/lab/tools/runs/:id` |
 | **M4 — Live** | Durable Object `RunChannel`, tombol Run publik, Turnstile, rate limit, watchdog cron | Pengunjung memicu run dan melihat log/langkah muncul live |
 | **M5 — Riwayat & jadwal** | Run terjadwal harian, dashboard pass rate, admin owner, suite `full` | Grafik 30 hari terisi |
 | **M6 — Project berikutnya** | Automation Jastip / Undangan | Opsional |
@@ -389,11 +389,11 @@ Endpoint:
 | Risiko | Mitigasi |
 | --- | --- |
 | Runner GitHub lambat mulai (30–90 detik), terasa "tidak live" | Tampilkan status `queued` dengan penjelasan + tampilkan replay run terakhir sambil menunggu. Cache browser Playwright di workflow. |
-| Test menjalankan aksi di production HelpMyCV | Akun test khusus, prefix `[QA-BOT]`, cleanup wajib, tidak ada flow admin/AI. |
+| Test menjalankan aksi di production Tools from Eiklab | Akun test khusus, prefix `[QA-BOT]`, cleanup wajib, tidak ada flow admin/AI. |
 | Penyalahgunaan tombol Run | §7: Turnstile, kuota, 1 run aktif, tombol bisa dimatikan owner. |
 | Repo publik → kode dan riwayat workflow bisa dibaca siapa pun | Secret hanya di GitHub Secrets / Worker secret; log reporter tidak mencetak kredensial (SEC-06); `e2e` tidak jalan untuk PR dari fork (SEC-08). |
-| Tidak ada staging: bug di test bisa merusak data production HelpMyCV | Akun bot khusus, prefix `[QA-BOT]`, cleanup wajib, suite publik tidak berisi aksi destruktif di luar data bot. |
-| Perubahan UI HelpMyCV memecah test | `data-testid` ditambahkan di HelpMyCV + locator terpusat. Run terjadwal mendeteksi lebih awal. |
+| Tidak ada staging: bug di test bisa merusak data production Tools from Eiklab | Akun bot khusus, prefix `[QA-BOT]`, cleanup wajib, suite publik tidak berisi aksi destruktif di luar data bot. |
+| Perubahan UI Tools from Eiklab memecah test | `data-testid` ditambahkan di Tools from Eiklab + locator terpusat. Run terjadwal mendeteksi lebih awal. |
 | Video `.webm` tidak jalan di Safari | Konversi ke mp4 dengan ffmpeg di runner sebelum upload. |
 
 ---
@@ -407,8 +407,8 @@ Tidak ada.
 | Topik | Keputusan | Tanggal |
 | --- | --- | --- |
 | Visibilitas repo | Repo portofolio **publik**: menit GitHub Actions gratis, kode test bisa ditunjukkan ke interviewer. Konsekuensi: tidak ada secret, URL internal, atau kredensial di kode; semua lewat GitHub Secrets / Worker secret | 2026-10-24 |
-| `data-testid` | Boleh ditambahkan di repo HelpMyCV. Locator test memprioritaskan `getByTestId`, lalu role/label | 2026-10-24 |
-| Environment target | Tanpa staging terpisah. Test langsung ke production HelpMyCV dengan akun bot dan aturan test data §6 | 2026-10-24 |
-| Domain | Frontend di `kei-portfolio.eiklab.com` (custom domain Worker); `*.workers.dev` tetap aktif sebagai cadangan | 2026-10-30 |
+| `data-testid` | Boleh ditambahkan di repo Tools from Eiklab. Locator test memprioritaskan `getByTestId`, lalu role/label | 2026-10-24 |
+| Environment target | Tanpa staging terpisah. Test langsung ke production Tools from Eiklab dengan akun bot dan aturan test data §6 | 2026-10-24 |
+| Domain | Frontend di `kei-portfolio.eiklab.com` (custom domain Worker); `*.workers.dev` redirect 301 ke domain ini | 2026-10-30 |
 | Login | Hanya untuk owner (§4.4), tanpa registrasi | 2026-10-24 |
 | Penyimpanan hasil run | Tiap run Actions otomatis tersimpan ke D1 + R2 lewat Worker (§8.1) | 2026-10-24 |

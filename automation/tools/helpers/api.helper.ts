@@ -3,11 +3,11 @@ import type { Account } from '../utils/data-generator';
 import type { ResumeContent } from '../utils/resume-content';
 
 /**
- * Akses langsung ke API HelpMyCV (same-origin `/api/*`, Bearer token).
+ * Akses langsung ke API Tools from Eiklab (same-origin `/api/*`, Bearer token).
  * Dipakai untuk menyiapkan data dan cleanup, supaya tiap test hanya
  * menguji satu alur lewat UI dan tidak bergantung pada test lain.
  */
-export class HelpMyCvApi {
+export class ToolsApi {
   constructor(private request: APIRequestContext) {}
 
   private auth(token: string) {

@@ -93,7 +93,7 @@ export function RunReport({ className }: { className?: string }) {
           <p className="text-xs uppercase tracking-widest text-white/50">
             {ui.lab.latest} · {latestRun.date} · {latestRun.source === 'local' ? ui.lab.local : 'GitHub Actions'}
           </p>
-          <p className="mt-1 text-white">helpmycv / chromium</p>
+          <p className="mt-1 text-white">tools / chromium</p>
         </div>
         <div className="flex items-center gap-3">
           <span className="rounded-full bg-emerald-400/15 px-3 py-1 text-xs font-semibold text-emerald-300">

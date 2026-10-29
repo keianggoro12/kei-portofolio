@@ -9,7 +9,7 @@ import { Turnstile } from '@/components/Turnstile';
 import { api, ApiError, isActive, useLabConfig } from '@/lib/api';
 import { useLang } from '@/lib/i18n';
 
-const PROJECT = 'helpmycv';
+const PROJECT = 'tools';
 const FLOW_ICONS = [MousePointerClick, Server, Cloud, Activity];
 
 function RunPanel({ runs }: { runs: RunSummary[] | null }) {

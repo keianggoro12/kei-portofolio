@@ -26,7 +26,7 @@ publicRoutes.get('/config', (c) =>
 );
 
 publicRoutes.get('/runs', async (c) => {
-  const project = c.req.query('project') ?? 'helpmycv';
+  const project = c.req.query('project') ?? 'tools';
   const limit = Math.min(Math.max(Number(c.req.query('limit')) || 20, 1), 50);
   return c.json({ runs: await listRuns(c.env.DB, project, limit) });
 });

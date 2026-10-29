@@ -28,23 +28,23 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    slug: 'helpmycv',
-    name: 'Kei With Tools',
+    slug: 'tools',
+    name: 'Tools from Eiklab',
     tagline: {
-      en: 'CV builder + 36 PDF, image & developer tools behind one login.',
-      id: 'CV builder + 36 alat PDF, gambar & developer dalam satu akun.',
+      en: 'CV builder + 38 PDF, image & developer tools behind one login.',
+      id: 'CV builder + 38 alat PDF, gambar & developer dalam satu akun.',
     },
     description: {
       en: 'A web app to keep one master CV and a tailored copy for every job you apply to, with AI that drafts and rewrites on request, an A4 live preview, and a toolbox where most tools never upload your file.',
       id: 'Web app untuk menyimpan satu CV master dan salinan yang disesuaikan untuk tiap lamaran, dengan AI yang membuat draf dan menulis ulang sesuai perintah, preview A4 langsung, dan kumpulan alat yang sebagian besar tidak meng-upload file kamu.',
     },
-    url: 'https://helpmycv-frontend.keianggoro12.workers.dev/',
-    image: '/projects/helpmycv.jpg',
+    url: 'https://tools.eiklab.com/',
+    image: '/projects/tools.jpg',
     stack: ['Next.js 16', 'React 19', 'Hono', 'Cloudflare Workers', 'D1', 'R2', 'GitHub Actions'],
     features: [
       { en: 'One master CV, copied and adjusted per job, in a schema-based editor with A4 preview and pagination', id: 'Satu CV master, disalin dan disesuaikan per lamaran, di editor berbasis skema dengan preview A4 dan pagination' },
       { en: 'Auto CV from a description or an old CV, plus Edit with AI to rewrite it from an instruction (OpenAI, Anthropic, Gemini)', id: 'Auto CV dari deskripsi atau CV lama, plus Edit with AI untuk menulis ulang CV dari instruksi (OpenAI, Anthropic, Gemini)' },
-      { en: '25 PDF tools, 6 image tools, 5 developer tools, most running in the browser', id: '25 alat PDF, 6 alat gambar, 5 alat developer, sebagian besar berjalan di browser' },
+      { en: '25 PDF tools, 7 image tools, 6 developer tools, most running in the browser', id: '25 alat PDF, 7 alat gambar, 6 alat developer, sebagian besar berjalan di browser' },
       { en: 'Email/password and Google login, EN/ID, light/dark', id: 'Login email/password dan Google, EN/ID, light/dark' },
     ],
     hasAutomation: true,
@@ -132,14 +132,36 @@ export const projects: Project[] = [
     ],
     hasAutomation: false,
   },
+  {
+    slug: 'school',
+    name: 'School from Eiklab',
+    tagline: {
+      en: 'Learn Japanese from the first kana to the JLPT N5, in Indonesian.',
+      id: 'Belajar bahasa Jepang dari huruf pertama sampai JLPT N5, dalam bahasa Indonesia.',
+    },
+    description: {
+      en: 'A free Japanese course for Indonesian learners: kana and N5 kanji written by hand on a canvas, grammar and vocabulary by chapter, and mock N5 exams, with every exercise drawn fresh from a question bank and every result saved to your account.',
+      id: 'Kursus bahasa Jepang gratis untuk pelajar Indonesia: kana dan kanji N5 ditulis tangan di kanvas, tata bahasa dan kosakata per bab, serta simulasi ujian N5, dengan soal yang selalu diambil baru dari bank soal dan setiap hasil tersimpan di akunmu.',
+    },
+    url: 'https://school.eiklab.com/',
+    image: '/projects/school.jpg',
+    stack: ['React 19', 'Vite', 'React Router', 'Hono', 'Cloudflare Workers', 'D1', 'R2'],
+    features: [
+      { en: 'Handwriting canvas that grades shape, stroke order, and stroke direction in the browser, for 265 kana and N5 kanji', id: 'Kanvas tulis tangan yang menilai bentuk, urutan, dan arah goresan di browser, untuk 265 kana dan kanji N5' },
+      { en: '59 grammar patterns and 29 vocabulary themes, each chapter with its own timed exercise and passing score', id: '59 pola tata bahasa dan 29 tema kosakata, tiap bab dengan latihan berwaktu dan nilai lulus sendiri' },
+      { en: 'Mock N5 exams laid out like the real JLPT paper, assembled per user from 335 questions, listening audio included', id: 'Simulasi N5 dengan tampilan seperti lembar JLPT asli, disusun per pengguna dari 335 soal, termasuk audio mendengarkan' },
+      { en: 'Email/password and Google login, result history, progress analytics, admin dashboard, light/dark', id: 'Login email/password dan Google, riwayat hasil, analitik perkembangan, dashboard admin, light/dark' },
+    ],
+    hasAutomation: false,
+  },
 ];
 
 /**
- * Run terakhir suite HelpMyCV (lokal, 2026-10-24). Diganti data live dari D1
+ * Run terakhir suite Tools from Eiklab (lokal, 2026-10-24). Diganti data live dari D1
  * setelah runner GitHub Actions jalan (PRD M3).
  */
 export const latestRun = {
-  project: 'helpmycv',
+  project: 'tools',
   date: '2026-10-24',
   source: 'local' as 'local' | 'github-actions',
   tests: [

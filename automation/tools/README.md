@@ -1,6 +1,6 @@
-# HelpMyCV Automation
+# Tools from Eiklab Automation
 
-End-to-end test Playwright + TypeScript untuk [HelpMyCV](https://helpmycv-frontend.keianggoro12.workers.dev/) (Kei With Tools). Polanya sama dengan Automation Newsroom (`automation-frontend-single-brand`): Page Object Model, screenshot per langkah, video, network log, dan HTML report.
+End-to-end test Playwright + TypeScript untuk [Tools from Eiklab](https://tools.eiklab.com). Polanya sama dengan Automation Newsroom (`automation-frontend-single-brand`): Page Object Model, screenshot per langkah, video, network log, dan HTML report.
 
 ## Cakupan
 
@@ -25,7 +25,7 @@ npm run test:resume      # create, edit, delete CV
 npm run report           # buka HTML report
 ```
 
-`.env` opsional (lihat `.env.example`). Tanpa `.env`, test berjalan ke production HelpMyCV dengan isi CV dummy.
+`.env` opsional (lihat `.env.example`). Tanpa `.env`, test berjalan ke production Tools from Eiklab dengan isi CV dummy.
 
 ## Isi CV dari Gemini
 
@@ -42,7 +42,7 @@ Create dan edit memakai method yang sama, `fillResumeContent()` di `helpers/resu
 - Tidak ada kredensial yang disimpan. Tiap run mendaftarkan akun bot baru lewat API (`fixtures/test.ts`, fixture `account`), dengan password acak.
 - Semua data diberi prefix `[QA-BOT]`. Email memakai domain `example.com`, jadi tidak ada email yang terkirim.
 - Tiap test berdiri sendiri: edit dan delete menyiapkan CV lewat API, lalu `afterEach` menghapus CV yang dibuat test.
-- HelpMyCV belum punya endpoint hapus akun, jadi akun bot tetap tersimpan setelah run.
+- Tools from Eiklab belum punya endpoint hapus akun, jadi akun bot tetap tersimpan setelah run.
 
 ## Hasil run
 

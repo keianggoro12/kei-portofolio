@@ -5,7 +5,7 @@ import { snap } from '../utils/snap';
 
 export async function registerViaUi(page: Page, account: Account): Promise<void> {
   const authPage = new AuthPage(page);
-  await test.step('Buka halaman utama HelpMyCV', async () => {
+  await test.step('Buka halaman utama Tools from Eiklab', async () => {
     await authPage.navigateToLanding();
     await snap(page, 'landing page');
   });
@@ -25,7 +25,7 @@ export async function registerViaUi(page: Page, account: Account): Promise<void>
 
 export async function login(page: Page, email: string, password: string): Promise<void> {
   const authPage = new AuthPage(page);
-  await test.step('Buka halaman utama HelpMyCV', () => authPage.navigateToLanding());
+  await test.step('Buka halaman utama Tools from Eiklab', () => authPage.navigateToLanding());
   await test.step('Klik tombol "Log in"', async () => {
     await authPage.openLoginDialog();
     await snap(page, 'login dialog', { highlight: authPage.loginDialog });

@@ -4,14 +4,14 @@ import path from 'path';
 
 dotenv.config({ path: path.resolve(__dirname, '.env') });
 
-// Production HelpMyCV (tidak ada staging). Bisa diganti lewat .env.
-const baseURL = process.env.BASE_URL || 'https://helpmycv-frontend.keianggoro12.workers.dev';
+// Production Tools from Eiklab (tidak ada staging). Bisa diganti lewat .env.
+const baseURL = process.env.BASE_URL || 'https://tools.eiklab.com';
 
 export default defineConfig({
   testDir: './tests',
   fullyParallel: false,
   forbidOnly: !!process.env.CI,
-  // Production HelpMyCV sesekali membalas 503; di CI satu retry supaya hasilnya
+  // Production Tools from Eiklab sesekali membalas 503; di CI satu retry supaya hasilnya
   // tercatat "flaky" (bukan gagal), dan tetap terlihat di report.
   retries: process.env.CI ? 1 : 0,
   workers: 1,
@@ -21,7 +21,7 @@ export default defineConfig({
   reporter: [['./reporters/step-reporter.ts'], ['./reporters/cloud-reporter.ts'], ['list'], ['html', { open: 'never' }]],
   use: {
     baseURL,
-    // UI HelpMyCV mengikuti bahasa browser; dikunci ke Inggris supaya locator stabil.
+    // UI Tools from Eiklab mengikuti bahasa browser; dikunci ke Inggris supaya locator stabil.
     locale: 'en-US',
     timezoneId: 'Asia/Jakarta',
     trace: 'retain-on-failure',

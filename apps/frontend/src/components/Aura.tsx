@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 /**
- * Cahaya yang mengikuti kursor di belakang halaman, diadaptasi dari LandingAura HelpMyCV.
+ * Cahaya yang mengikuti kursor di belakang halaman, diadaptasi dari LandingAura Tools from Eiklab.
  *
  * Koordinat ditulis sebagai custom property di <html>, bukan state React: pointermove
  * terlalu sering untuk re-render, dan layer ini cuma dekorasi. Layer hanya digeser

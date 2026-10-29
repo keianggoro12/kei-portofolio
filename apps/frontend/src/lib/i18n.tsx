@@ -56,7 +56,7 @@ const en = {
   projects: {
     eyebrow: 'Projects',
     title: 'I build products, so I know where they break',
-    subtitle: 'Three live apps I designed, built, and deployed end to end. One of them is already covered by automation you can inspect.',
+    subtitle: 'Four live apps I designed, built, and deployed end to end. One of them is already covered by automation you can inspect.',
     automated: 'Automated with Playwright',
     notYet: 'Automation coming',
     visit: 'Visit live site',
@@ -66,7 +66,7 @@ const en = {
   lab: {
     eyebrow: 'QA Lab',
     title: "Don't take my word for it. Watch the tests run.",
-    subtitle: 'Real Playwright tests against my production app HelpMyCV: step-by-step screenshots, video, and a report, recorded on every run.',
+    subtitle: 'Real Playwright tests against my production app Tools from Eiklab: step-by-step screenshots, video, and a report, recorded on every run.',
     latest: 'Latest run',
     local: 'local run',
     open: 'Open QA Lab',
@@ -202,7 +202,7 @@ const id: Dict = {
   projects: {
     eyebrow: 'Project',
     title: 'Saya membangun produk, jadi saya tahu di mana ia rusak',
-    subtitle: 'Tiga aplikasi live yang saya rancang, bangun, dan deploy sendiri. Salah satunya sudah dicakup automation yang bisa Anda periksa.',
+    subtitle: 'Empat aplikasi live yang saya rancang, bangun, dan deploy sendiri. Salah satunya sudah dicakup automation yang bisa Anda periksa.',
     automated: 'Terotomasi dengan Playwright',
     notYet: 'Automation menyusul',
     visit: 'Buka situs live',
@@ -212,7 +212,7 @@ const id: Dict = {
   lab: {
     eyebrow: 'QA Lab',
     title: 'Jangan percaya kata saya. Lihat test-nya berjalan.',
-    subtitle: 'Test Playwright sungguhan terhadap aplikasi production saya, HelpMyCV: screenshot per langkah, video, dan report, direkam di setiap run.',
+    subtitle: 'Test Playwright sungguhan terhadap aplikasi production saya, Tools from Eiklab: screenshot per langkah, video, dan report, direkam di setiap run.',
     latest: 'Run terakhir',
     local: 'run lokal',
     open: 'Buka QA Lab',

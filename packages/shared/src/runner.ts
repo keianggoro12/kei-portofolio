@@ -8,7 +8,7 @@ export type TestStatus = 'running' | 'passed' | 'failed' | 'skipped';
 export const ACTIVE_RUN_STATUSES: RunStatus[] = ['queued', 'running'];
 
 /** Project yang boleh dipicu (punya workflow e2e-<project>.yml). */
-export const RUNNABLE_PROJECTS = ['helpmycv'] as const;
+export const RUNNABLE_PROJECTS = ['tools'] as const;
 export type RunnableProject = (typeof RUNNABLE_PROJECTS)[number];
 
 export type RunnerEvent =

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { BrowserRouter, Outlet, Route, Routes, useLocation } from 'react-router-dom';
+import { BrowserRouter, Navigate, Outlet, Route, Routes, useLocation } from 'react-router-dom';
 import { Aura } from '@/components/Aura';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/showcase';
@@ -47,6 +47,8 @@ export default function App() {
         <Routes>
           <Route element={<Layout />}>
             <Route index element={<Home />} />
+            {/* Slug lama sebelum HelpMyCV berganti nama jadi Tools from Eiklab. */}
+            <Route path="projects/helpmycv" element={<Navigate to="/projects/tools" replace />} />
             <Route path="projects/:slug" element={<ProjectDetail />} />
             <Route path="lab" element={<Lab />} />
             <Route path="lab/runs/:runId" element={<RunView />} />

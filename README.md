@@ -8,7 +8,7 @@ Situs portofolio Juliardi Dwi Anggoro (Kei), Senior QA Engineer, plus QA Lab: au
 | --- | --- |
 | `apps/frontend` | SPA React + Vite + Tailwind, di-deploy sebagai Cloudflare Workers static assets |
 | `packages/shared` | Konten profil, pengalaman, skill, project, dan hasil run terakhir (EN/ID) |
-| `automation/helpmycv` | Suite Playwright untuk HelpMyCV (lihat README di folder itu) |
+| `automation/tools` | Suite Playwright untuk Tools from Eiklab (lihat README di folder itu) |
 
 ## Menjalankan frontend
 

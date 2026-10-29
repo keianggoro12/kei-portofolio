@@ -1,5 +1,5 @@
 import { test as networkTest } from './network';
-import { HelpMyCvApi } from '../helpers/api.helper';
+import { ToolsApi } from '../helpers/api.helper';
 import { addClickEffect } from '../utils/click-effect';
 import { generateAccount, type Account } from '../utils/data-generator';
 
@@ -9,9 +9,9 @@ export interface BotAccount extends Account {
   token: string;
 }
 
-export const test = networkTest.extend<{ api: HelpMyCvApi; clickEffect: void }, { account: BotAccount }>({
+export const test = networkTest.extend<{ api: ToolsApi; clickEffect: void }, { account: BotAccount }>({
   api: async ({ request }, use) => {
-    await use(new HelpMyCvApi(request));
+    await use(new ToolsApi(request));
   },
 
   // Klik terlihat di video untuk semua test (headless tidak merekam kursor).
@@ -29,7 +29,7 @@ export const test = networkTest.extend<{ api: HelpMyCvApi; clickEffect: void }, 
     async ({ playwright }, use, workerInfo) => {
       const request = await playwright.request.newContext({ baseURL: workerInfo.project.use.baseURL });
       const account = generateAccount();
-      const token = await new HelpMyCvApi(request).register(account);
+      const token = await new ToolsApi(request).register(account);
       await request.dispose();
       await use({ ...account, token });
     },
