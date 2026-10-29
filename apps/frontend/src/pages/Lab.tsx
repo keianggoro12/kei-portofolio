@@ -149,28 +149,26 @@ export default function Lab() {
 
         <div className="mt-10 grid gap-6 lg:grid-cols-[1fr_1.15fr]">
           <Reveal className="relative min-w-0">
-            {/* Di layar lebar tinggi baris mengikuti media player; daftar run mengisi sisanya lalu di-scroll. */}
-            <div className={cn(hasRuns && 'lg:absolute lg:inset-0 lg:flex lg:flex-col')}>
-              {hasRuns ? (
-                <RunHistory runs={runs} className="max-h-[28rem] lg:max-h-none lg:min-h-0 lg:flex-1" />
-              ) : (
-                <>
-                  <p className="mb-3 font-mono text-xs uppercase tracking-widest text-white/40">{ui.runner.sample}</p>
-                  <RunReport />
-                </>
-              )}
-              <div className="mt-6 flex shrink-0 flex-wrap gap-2">
-                {automated.map((p) => (
-                  <Link key={p.slug} to={`/projects/${p.slug}`} className="rounded-full border border-white/15 px-3 py-1.5 text-sm text-white/80 hover:border-emerald-400 hover:text-white">
-                    {p.name} →
-                  </Link>
-                ))}
-              </div>
-            </div>
+            {/* Di layar lebar kartu run setinggi media player; daftarnya di-scroll. */}
+            {hasRuns ? (
+              <RunHistory runs={runs} className="max-h-[28rem] lg:absolute lg:inset-0 lg:max-h-none" />
+            ) : (
+              <>
+                <p className="mb-3 font-mono text-xs uppercase tracking-widest text-white/40">{ui.runner.sample}</p>
+                <RunReport />
+              </>
+            )}
           </Reveal>
           <Reveal delay={100} className="min-w-0">
             <StepGallery />
           </Reveal>
+        </div>
+        <div className="mt-6 flex flex-wrap gap-2">
+          {automated.map((p) => (
+            <Link key={p.slug} to={`/projects/${p.slug}`} className="rounded-full border border-white/15 px-3 py-1.5 text-sm text-white/80 hover:border-emerald-400 hover:text-white">
+              {p.name} →
+            </Link>
+          ))}
         </div>
 
         <section className="mt-20">
