@@ -8,6 +8,7 @@ import { RunReport, StepGallery } from '@/components/showcase';
 import { Turnstile } from '@/components/Turnstile';
 import { api, ApiError, isActive, useLabConfig } from '@/lib/api';
 import { useLang } from '@/lib/i18n';
+import { cn } from '@/lib/utils';
 
 const PROJECT = 'tools';
 const FLOW_ICONS = [MousePointerClick, Server, Cloud, Activity];
@@ -82,13 +83,13 @@ function RunPanel({ runs }: { runs: RunSummary[] | null }) {
   );
 }
 
-function RunHistory({ runs }: { runs: RunSummary[] }) {
+function RunHistory({ runs, className }: { runs: RunSummary[]; className?: string }) {
   const { ui, lang } = useLang();
   const dateFormat = new Intl.DateTimeFormat(lang === 'id' ? 'id-ID' : 'en-GB', { dateStyle: 'medium', timeStyle: 'short' });
   return (
-    <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03]">
-      <p className="border-b border-white/10 px-5 py-3 font-mono text-xs uppercase tracking-widest text-white/50">{ui.runner.history}</p>
-      <ul className="divide-y divide-white/5">
+    <div className={cn('flex flex-col overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03]', className)}>
+      <p className="shrink-0 border-b border-white/10 px-5 py-3 font-mono text-xs uppercase tracking-widest text-white/50">{ui.runner.history}</p>
+      <ul className="min-h-0 flex-1 divide-y divide-white/5 overflow-y-auto overscroll-contain [scrollbar-color:rgb(255_255_255/0.2)_transparent] [scrollbar-width:thin]">
         {runs.map((run) => (
           <li key={run.id}>
             <Link to={`/lab/runs/${run.id}`} className="flex flex-wrap items-center gap-x-4 gap-y-1 px-5 py-3 transition hover:bg-white/[0.04]">
@@ -147,21 +148,24 @@ export default function Lab() {
         </Reveal>
 
         <div className="mt-10 grid gap-6 lg:grid-cols-[1fr_1.15fr]">
-          <Reveal className="min-w-0">
-            {hasRuns ? (
-              <RunHistory runs={runs} />
-            ) : (
-              <>
-                <p className="mb-3 font-mono text-xs uppercase tracking-widest text-white/40">{ui.runner.sample}</p>
-                <RunReport />
-              </>
-            )}
-            <div className="mt-6 flex flex-wrap gap-2">
-              {automated.map((p) => (
-                <Link key={p.slug} to={`/projects/${p.slug}`} className="rounded-full border border-white/15 px-3 py-1.5 text-sm text-white/80 hover:border-emerald-400 hover:text-white">
-                  {p.name} →
-                </Link>
-              ))}
+          <Reveal className="relative min-w-0">
+            {/* Di layar lebar tinggi baris mengikuti media player; daftar run mengisi sisanya lalu di-scroll. */}
+            <div className={cn(hasRuns && 'lg:absolute lg:inset-0 lg:flex lg:flex-col')}>
+              {hasRuns ? (
+                <RunHistory runs={runs} className="max-h-[28rem] lg:max-h-none lg:min-h-0 lg:flex-1" />
+              ) : (
+                <>
+                  <p className="mb-3 font-mono text-xs uppercase tracking-widest text-white/40">{ui.runner.sample}</p>
+                  <RunReport />
+                </>
+              )}
+              <div className="mt-6 flex shrink-0 flex-wrap gap-2">
+                {automated.map((p) => (
+                  <Link key={p.slug} to={`/projects/${p.slug}`} className="rounded-full border border-white/15 px-3 py-1.5 text-sm text-white/80 hover:border-emerald-400 hover:text-white">
+                    {p.name} →
+                  </Link>
+                ))}
+              </div>
             </div>
           </Reveal>
           <Reveal delay={100} className="min-w-0">
