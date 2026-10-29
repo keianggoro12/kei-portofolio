@@ -2,7 +2,7 @@
   "name": "tools-automation",
   "version": "1.0.0",
   "private": true,
-  "description": "End-to-end automation for Tools from Eiklab (https://tools.eiklab.com)",
+  "description": "End-to-end automation for Tools from Eiklab (https://staging-tools.eiklab.com)",
   "scripts": {
     "test": "playwright test",
     "test:auth": "playwright test tests/auth/",

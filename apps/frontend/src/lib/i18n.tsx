@@ -10,7 +10,7 @@ const en = {
     cta: { contact: 'Get in touch', lab: 'Watch my tests run', cv: 'Download CV' },
     based: 'Based in',
     passRate: 'latest run',
-    labBanner: 'Real Playwright tests on my production app',
+    labBanner: 'Real Playwright tests on my app, live on staging',
   },
   terminal: { title: 'kei.spec.ts', running: 'Running 6 tests using 1 worker', passed: 'passed', ready: 'Ready for your team.' },
   stats: {
@@ -18,7 +18,7 @@ const en = {
     qa: 'in Quality Assurance',
     roles: 'QA roles, 2 companies',
     products: 'products built & shipped solo',
-    e2e: 'E2E flows automated on production',
+    e2e: 'E2E flows automated on staging',
   },
   about: {
     eyebrow: 'About',
@@ -66,7 +66,7 @@ const en = {
   lab: {
     eyebrow: 'QA Lab',
     title: "Don't take my word for it. Watch the tests run.",
-    subtitle: 'Real Playwright tests against my production app Tools from Eiklab: step-by-step screenshots, video, and a report, recorded on every run.',
+    subtitle: 'Real Playwright tests against the staging environment of my app Tools from Eiklab: step-by-step screenshots, video, and a report, recorded on every run.',
     latest: 'Latest run',
     local: 'local run',
     open: 'Open QA Lab',
@@ -110,7 +110,7 @@ const en = {
     test: 'Test case',
   },
   runner: {
-    run: 'Run 5 tests on production',
+    run: 'Run 5 tests on staging',
     starting: 'Starting…',
     note: 'Takes about 3 minutes. One run at a time, 3 runs per visitor per day.',
     verify: 'Complete the check to enable the button.',
@@ -156,7 +156,7 @@ const id: Dict = {
     cta: { contact: 'Hubungi saya', lab: 'Lihat test saya berjalan', cv: 'Unduh CV' },
     based: 'Berdomisili di',
     passRate: 'run terakhir',
-    labBanner: 'Test Playwright sungguhan di aplikasi production saya',
+    labBanner: 'Test Playwright sungguhan di aplikasi saya, live di staging',
   },
   terminal: { title: 'kei.spec.ts', running: 'Menjalankan 6 test dengan 1 worker', passed: 'lolos', ready: 'Siap bergabung dengan tim Anda.' },
   stats: {
@@ -164,7 +164,7 @@ const id: Dict = {
     qa: 'di Quality Assurance',
     roles: 'role QA, 2 perusahaan',
     products: 'produk dibangun & dirilis sendiri',
-    e2e: 'alur E2E terotomasi di production',
+    e2e: 'alur E2E terotomasi di staging',
   },
   about: {
     eyebrow: 'Tentang',
@@ -212,7 +212,7 @@ const id: Dict = {
   lab: {
     eyebrow: 'QA Lab',
     title: 'Jangan percaya kata saya. Lihat test-nya berjalan.',
-    subtitle: 'Test Playwright sungguhan terhadap aplikasi production saya, Tools from Eiklab: screenshot per langkah, video, dan report, direkam di setiap run.',
+    subtitle: 'Test Playwright sungguhan terhadap staging aplikasi saya, Tools from Eiklab: screenshot per langkah, video, dan report, direkam di setiap run.',
     latest: 'Run terakhir',
     local: 'run lokal',
     open: 'Buka QA Lab',
@@ -256,7 +256,7 @@ const id: Dict = {
     test: 'Test case',
   },
   runner: {
-    run: 'Jalankan 5 test di production',
+    run: 'Jalankan 5 test di staging',
     starting: 'Memulai…',
     note: 'Sekitar 3 menit. Satu run dalam satu waktu, 3 run per pengunjung per hari.',
     verify: 'Selesaikan verifikasi untuk mengaktifkan tombol.',

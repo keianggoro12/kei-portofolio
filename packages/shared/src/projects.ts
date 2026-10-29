@@ -50,8 +50,8 @@ export const projects: Project[] = [
     hasAutomation: true,
     caseStudy: {
       strategy: {
-        en: 'No staging environment, so every test runs against production with a disposable bot account registered per run. Each test is independent: data it needs is prepared through the API, and anything it creates is deleted afterwards.',
-        id: 'Tidak ada staging, jadi semua test berjalan ke production dengan akun bot sekali pakai yang didaftarkan tiap run. Tiap test berdiri sendiri: data yang dibutuhkan disiapkan lewat API, dan semua yang dibuat test dihapus setelahnya.',
+        en: 'Every test runs against the staging environment, never production, with a disposable bot account registered per run. Each test is independent: data it needs is prepared through the API, and anything it creates is deleted afterwards.',
+        id: 'Semua test berjalan ke staging, tidak pernah ke production, dengan akun bot sekali pakai yang didaftarkan tiap run. Tiap test berdiri sendiri: data yang dibutuhkan disiapkan lewat API, dan semua yang dibuat test dihapus setelahnya.',
       },
       automated: [
         {

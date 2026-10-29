@@ -168,7 +168,7 @@ GitHub Actions workflow "e2e-tools.yml"
         ▼
       kembali ke backend /api/runner/*
         │
-        └─ Target: https://tools.eiklab.com
+        └─ Target: https://staging-tools.eiklab.com
 ```
 
 ### 5.2 Kenapa begini
@@ -249,7 +249,7 @@ Aturan:
 
 ## 6. Suite & coverage Tools from Eiklab
 
-Target: `https://tools.eiklab.com` (production).
+Target: `https://staging-tools.eiklab.com` (staging). Test tidak pernah diarahkan ke production `https://tools.eiklab.com`.
 
 | Suite | Isi | Siapa yang boleh memicu | Estimasi durasi |
 | --- | --- | --- | --- |
@@ -278,7 +278,7 @@ Catatan untuk case study: PRD Tools from Eiklab §8 menyebut alat yang butuh bro
 
 ## 7. Keamanan & batas pemakaian
 
-Tombol Run publik berarti siapa pun bisa memakai menit GitHub Actions dan mengirim traffic ke production Tools from Eiklab. Karena itu:
+Tombol Run publik berarti siapa pun bisa memakai menit GitHub Actions dan mengirim traffic ke staging Tools from Eiklab. Karena itu:
 
 | ID | Aturan |
 | --- | --- |
@@ -389,10 +389,10 @@ Endpoint:
 | Risiko | Mitigasi |
 | --- | --- |
 | Runner GitHub lambat mulai (30–90 detik), terasa "tidak live" | Tampilkan status `queued` dengan penjelasan + tampilkan replay run terakhir sambil menunggu. Cache browser Playwright di workflow. |
-| Test menjalankan aksi di production Tools from Eiklab | Akun test khusus, prefix `[QA-BOT]`, cleanup wajib, tidak ada flow admin/AI. |
+| Test menjalankan aksi di staging Tools from Eiklab | Akun test khusus, prefix `[QA-BOT]`, cleanup wajib, tidak ada flow admin/AI. |
 | Penyalahgunaan tombol Run | §7: Turnstile, kuota, 1 run aktif, tombol bisa dimatikan owner. |
 | Repo publik → kode dan riwayat workflow bisa dibaca siapa pun | Secret hanya di GitHub Secrets / Worker secret; log reporter tidak mencetak kredensial (SEC-06); `e2e` tidak jalan untuk PR dari fork (SEC-08). |
-| Tidak ada staging: bug di test bisa merusak data production Tools from Eiklab | Akun bot khusus, prefix `[QA-BOT]`, cleanup wajib, suite publik tidak berisi aksi destruktif di luar data bot. |
+| Bug di test bisa merusak data staging Tools from Eiklab | Akun bot khusus, prefix `[QA-BOT]`, cleanup wajib, suite publik tidak berisi aksi destruktif di luar data bot. |
 | Perubahan UI Tools from Eiklab memecah test | `data-testid` ditambahkan di Tools from Eiklab + locator terpusat. Run terjadwal mendeteksi lebih awal. |
 | Video `.webm` tidak jalan di Safari | Konversi ke mp4 dengan ffmpeg di runner sebelum upload. |
 
@@ -408,7 +408,7 @@ Tidak ada.
 | --- | --- | --- |
 | Visibilitas repo | Repo portofolio **publik**: menit GitHub Actions gratis, kode test bisa ditunjukkan ke interviewer. Konsekuensi: tidak ada secret, URL internal, atau kredensial di kode; semua lewat GitHub Secrets / Worker secret | 2026-10-24 |
 | `data-testid` | Boleh ditambahkan di repo Tools from Eiklab. Locator test memprioritaskan `getByTestId`, lalu role/label | 2026-10-24 |
-| Environment target | Tanpa staging terpisah. Test langsung ke production Tools from Eiklab dengan akun bot dan aturan test data §6 | 2026-10-24 |
+| Environment target | Test ke staging `https://staging-tools.eiklab.com`, tidak pernah ke production. Tetap memakai akun bot dan aturan test data §6 | 2026-10-30 |
 | Domain | Frontend di `kei-portfolio.eiklab.com` (custom domain Worker); `*.workers.dev` redirect 301 ke domain ini | 2026-10-30 |
 | Login | Hanya untuk owner (§4.4), tanpa registrasi | 2026-10-24 |
 | Penyimpanan hasil run | Tiap run Actions otomatis tersimpan ke D1 + R2 lewat Worker (§8.1) | 2026-10-24 |

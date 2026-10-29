@@ -1,6 +1,6 @@
 # Tools from Eiklab Automation
 
-End-to-end test Playwright + TypeScript untuk [Tools from Eiklab](https://tools.eiklab.com). Polanya sama dengan Automation Newsroom (`automation-frontend-single-brand`): Page Object Model, screenshot per langkah, video, network log, dan HTML report.
+End-to-end test Playwright + TypeScript untuk [Tools from Eiklab](https://tools.eiklab.com), dijalankan ke staging (https://staging-tools.eiklab.com). Polanya sama dengan Automation Newsroom (`automation-frontend-single-brand`): Page Object Model, screenshot per langkah, video, network log, dan HTML report.
 
 ## Cakupan
 
@@ -25,7 +25,7 @@ npm run test:resume      # create, edit, delete CV
 npm run report           # buka HTML report
 ```
 
-`.env` opsional (lihat `.env.example`). Tanpa `.env`, test berjalan ke production Tools from Eiklab dengan isi CV dummy.
+`.env` opsional (lihat `.env.example`). Tanpa `.env`, test berjalan ke staging Tools from Eiklab dengan isi CV dummy.
 
 ## Isi CV dari Gemini
 

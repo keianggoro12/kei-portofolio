@@ -4,14 +4,14 @@ import path from 'path';
 
 dotenv.config({ path: path.resolve(__dirname, '.env') });
 
-// Production Tools from Eiklab (tidak ada staging). Bisa diganti lewat .env.
-const baseURL = process.env.BASE_URL || 'https://tools.eiklab.com';
+// Staging Tools from Eiklab; test tidak pernah diarahkan ke production. Bisa diganti lewat .env.
+const baseURL = process.env.BASE_URL || 'https://staging-tools.eiklab.com';
 
 export default defineConfig({
   testDir: './tests',
   fullyParallel: false,
   forbidOnly: !!process.env.CI,
-  // Production Tools from Eiklab sesekali membalas 503; di CI satu retry supaya hasilnya
+  // Tools from Eiklab sesekali membalas 503; di CI satu retry supaya hasilnya
   // tercatat "flaky" (bukan gagal), dan tetap terlihat di report.
   retries: process.env.CI ? 1 : 0,
   workers: 1,

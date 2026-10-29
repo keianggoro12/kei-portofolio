@@ -13,7 +13,7 @@ I lead QA at Tempo and build end-to-end test automation with **Playwright** and 
 
 ## 🧪 QA Lab: don't take my word for it
 
-My portfolio runs **real Playwright tests against my production app** on demand. Press _Run_, a GitHub Actions VM spins up, and every step streams back live with screenshots, video, and a report stored in Cloudflare D1 + R2.
+My portfolio runs **real Playwright tests against my app's staging environment** on demand. Press _Run_, a GitHub Actions VM spins up, and every step streams back live with screenshots, video, and a report stored in Cloudflare D1 + R2.
 
 👉 [Watch the tests run](https://kei-portfolio.eiklab.com/lab) · [Source](https://github.com/keianggoro12/kei-portofolio)
 
