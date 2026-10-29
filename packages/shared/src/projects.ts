@@ -157,26 +157,27 @@ export const projects: Project[] = [
 ];
 
 /**
- * Run terakhir suite Tools from Eiklab (lokal, 2026-10-24). Diganti data live dari D1
- * setelah runner GitHub Actions jalan (PRD M3).
+ * Cadangan bila API QA Lab tidak terjangkau. Normalnya beranda memakai run
+ * terakhir yang lulus dari D1; steps memilih screenshot dari run itu lewat
+ * tcId + awalan label step (label di helpers automation/tools).
  */
 export const latestRun = {
   project: 'tools',
-  date: '2026-10-24',
-  source: 'local' as 'local' | 'github-actions',
+  date: '2026-10-29',
+  source: 'github-actions' as 'local' | 'github-actions',
   tests: [
-    { id: 'AUT-01-01', title: 'Visitor can register a new account', status: 'passed', durationMs: 15000 },
-    { id: 'AUT-02-01', title: 'Registered user can log in', status: 'passed', durationMs: 9800 },
-    { id: 'RES-01-01', title: 'User can create a resume with every section filled', status: 'passed', durationMs: 39000 },
-    { id: 'RES-02-01', title: 'User can edit every section of a resume', status: 'passed', durationMs: 36400 },
-    { id: 'RES-03-01', title: 'User can delete a resume', status: 'passed', durationMs: 17800 },
+    { id: 'AUT-01-01', title: 'Visitor can register a new account', status: 'passed', durationMs: 16600 },
+    { id: 'AUT-02-01', title: 'Registered user can log in', status: 'passed', durationMs: 12300 },
+    { id: 'RES-01-01', title: 'User can create a resume with every section filled', status: 'passed', durationMs: 43700 },
+    { id: 'RES-02-01', title: 'User can edit every section of a resume', status: 'passed', durationMs: 53500 },
+    { id: 'RES-03-01', title: 'User can delete a resume', status: 'passed', durationMs: 20200 },
   ] satisfies TestCaseResult[],
   steps: [
-    { image: '/lab/step-register.jpg', label: { en: 'Register form filled (password never logged)', id: 'Form register terisi (password tidak pernah tercatat)' } },
-    { image: '/lab/step-template.jpg', label: { en: 'Pick a CV template', id: 'Pilih template CV' } },
-    { image: '/lab/step-experience.jpg', label: { en: 'Experience filled with Gemini-generated content', id: 'Experience diisi konten buatan Gemini' } },
-    { image: '/lab/step-reload.jpg', label: { en: 'Reload: every field persisted', id: 'Reload: semua field tersimpan' } },
-    { image: '/lab/step-list.jpg', label: { en: 'New CV appears in the list', id: 'CV baru muncul di daftar' } },
-    { image: '/lab/step-delete.jpg', label: { en: 'Delete with confirmation', id: 'Hapus dengan konfirmasi' } },
-  ] satisfies { image: string; label: Localized }[],
+    { tcId: 'AUT-01-01', match: 'Isi nama, nomor HP', image: '/lab/step-register.jpg', label: { en: 'Register form filled (password never logged)', id: 'Form register terisi (password tidak pernah tercatat)' } },
+    { tcId: 'RES-01-01', match: 'Isi nama CV', image: '/lab/step-name.jpg', label: { en: 'Name the new CV', id: 'Beri nama CV baru' } },
+    { tcId: 'RES-01-01', match: 'Isi section "Experience"', image: '/lab/step-experience.jpg', label: { en: 'Experience filled with Gemini-generated content', id: 'Experience diisi konten buatan Gemini' } },
+    { tcId: 'RES-01-01', match: 'Muat ulang editor', image: '/lab/step-reload.jpg', label: { en: 'Reload: every field persisted', id: 'Reload: semua field tersimpan' } },
+    { tcId: 'RES-01-01', match: 'Buka menu "Resumes"', image: '/lab/step-list.jpg', label: { en: 'New CV appears in the list', id: 'CV baru muncul di daftar' } },
+    { tcId: 'RES-03-01', match: 'Klik tombol "Delete"', image: '/lab/step-delete.jpg', label: { en: 'Delete with confirmation', id: 'Hapus dengan konfirmasi' } },
+  ] satisfies { tcId: string; match: string; image: string; label: Localized }[],
 };

@@ -1,7 +1,7 @@
-import { latestRun, profile, projects, type Project } from '@kei/shared';
+import { latestRun, profile, projects, type Localized, type Project, type TestCaseResult } from '@kei/shared';
 import { ArrowRight, ArrowUpRight, Check, ChevronLeft, ChevronRight, Clock, Copy, Download, Github, Instagram, Linkedin, Mail, PlayCircle } from 'lucide-react';
-import { useState } from 'react';
-import { useLabConfig } from '@/lib/api';
+import { useEffect, useState } from 'react';
+import { api, artifactUrl, useLabConfig } from '@/lib/api';
 import { Link } from 'react-router-dom';
 import { useLang } from '@/lib/i18n';
 import { cn } from '@/lib/utils';
@@ -81,9 +81,54 @@ function formatSeconds(ms: number): string {
   return `${(ms / 1000).toFixed(1)}s`;
 }
 
+interface ShownRun {
+  date: string;
+  source: 'local' | 'github-actions';
+  tests: TestCaseResult[];
+  steps: { image: string; label: Localized }[];
+}
+
+/** Run terakhir yang lulus di QA Lab; latestRun statis hanya cadangan bila API gagal. */
+async function loadLatestRun(): Promise<ShownRun> {
+  const summary = (await api.runs(latestRun.project)).find((run) => run.status === 'passed');
+  if (!summary) return latestRun;
+  const run = await api.run(summary.id);
+  // Satu baris per test case; attempt retry belakangan menimpa yang sebelumnya.
+  const byCase = new Map(run.tests.map((test) => [test.tcId ?? test.id, test]));
+  return {
+    date: (run.finishedAt ?? run.createdAt).slice(0, 10),
+    source: 'github-actions',
+    tests: [...byCase].map(([id, test]) => ({
+      id,
+      title: test.title.charAt(0).toUpperCase() + test.title.slice(1),
+      status: test.status === 'running' ? 'passed' : test.status,
+      durationMs: test.durationMs ?? 0,
+    })),
+    steps: latestRun.steps.map((step) => {
+      const key = byCase.get(step.tcId)?.steps.find((s) => s.screenshotKey && s.label.startsWith(step.match))?.screenshotKey;
+      return key ? { ...step, image: artifactUrl(key) } : step;
+    }),
+  };
+}
+
+let latestRunPromise: Promise<ShownRun> | null = null;
+function useLatestRun(): ShownRun {
+  const [run, setRun] = useState<ShownRun>(latestRun);
+  useEffect(() => {
+    latestRunPromise ??= loadLatestRun().catch(() => latestRun);
+    let alive = true;
+    void latestRunPromise.then((r) => alive && setRun(r));
+    return () => {
+      alive = false;
+    };
+  }, []);
+  return run;
+}
+
 /** Ringkasan run terakhir ala report Playwright. */
 export function RunReport({ className }: { className?: string }) {
   const { ui } = useLang();
+  const latestRun = useLatestRun();
   const passed = latestRun.tests.filter((test) => test.status === 'passed').length;
   const total = latestRun.tests.reduce((sum, test) => sum + test.durationMs, 0);
   return (
@@ -127,7 +172,7 @@ export function RunReport({ className }: { className?: string }) {
 export function StepGallery({ className }: { className?: string }) {
   const { ui, t } = useLang();
   const [index, setIndex] = useState(0);
-  const steps = latestRun.steps;
+  const { steps } = useLatestRun();
   const step = steps[index];
   const go = (delta: number) => setIndex((i) => (i + delta + steps.length) % steps.length);
 
